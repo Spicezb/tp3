@@ -40,7 +40,6 @@ def obtenerLista():
     return print("Los animales fueron agregados.")
 
 def desglozarRespu(respuesta):
-    # Separar por punto y coma
     partes=respuesta.split(",")
     nombres=(partes[0],partes[1][2:-1])
     informacion=partes[2:-1]
@@ -48,19 +47,14 @@ def desglozarRespu(respuesta):
     return(desglose)
 
 def crearInventario():
-    animal=[]
     lst=[]
     archivoAnimales=leer("animales.txt")
     for i in archivoAnimales:
         i = i.strip()
         if i != "":
             prompt=f"Dame el nombre popular y el científico, hábitat, dieta y una url de una foto de referencia del animal llamado '{i}', saca la informacion de Wikipedia." \
-                    "Responde solamente lo que te pedí, sin titulos ni explicaciones, quiero solamente la respuesta directa. no pngas ** entre nombres ni hagas '\ n' al final"
-            respuesta=comunicacionGemini(prompt)
-            desglose=desglozarRespu(respuesta)
-            animal.append(desglose)
-            lst.append(animal)
+                    "Responde solamente lo que te pedí, sin titulos ni explicaciones, quiero solamente la respuesta directa."
+            lst.append(desglozarRespu(comunicacionGemini(prompt)))
             time.sleep(5)
-            animal=[]
     print(lst)
 crearInventario()
