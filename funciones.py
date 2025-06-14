@@ -1,6 +1,9 @@
 from comunicacionApi import *
+from clase import *
 import pickle
 import time
+import random
+
 #Definición de funciones
 def leer(archivo):
     """
@@ -41,20 +44,36 @@ def obtenerLista():
 
 def desglozarRespu(respuesta):
     partes=respuesta.split(",")
-    nombres=(partes[0],partes[1][2:-1])
-    informacion=partes[2:-1]
-    desglose=[nombres,informacion,partes[-1][1:-1]]
+    nombres=(partes[0],partes[1])
+    informacion=partes[2]
+    desglose=[nombres,informacion,partes[-1]]
     return(desglose)
 
 def crearInventario():
+    conta=1
+    lstAnimal=[]
     lst=[]
     archivoAnimales=leer("animales.txt")
     for i in archivoAnimales:
         i = i.strip()
         if i != "":
-            prompt=f"Dame el nombre popular y el científico, hábitat, dieta y una url de una foto de referencia del animal llamado '{i}', saca la informacion de Wikipedia." \
-                    "Responde solamente lo que te pedí, sin titulos ni explicaciones, quiero solamente la respuesta directa."
+            prompt=f"Dame el nombre popular y el científico, que tipo es, Carnivoro, Herbivoro o Omnivoro (RESPONDE SOLAMENTE CON ESAS 3 OPCIONES DE PALABRAS) y una url de una foto"\
+                    f"de referencia del animal llamado '{i}', saca la informacion de Wikipedia." \
+                    f"Responde solamente lo que te pedí, sin titulos ni explicaciones, quiero solamente la respuesta directa."
             lst.append(desglozarRespu(comunicacionGemini(prompt)))
             time.sleep(5)
-    print(lst)
+    for x in lst:
+        estado=random.randint(1,5)
+        calificacion=int(input("1) No marcado\n2) Me gusta\n3)Favorito\n4) Me entristece\n5) Me enoja"))
+        infoAnimal=Animal()
+        if conta>10:
+            infoAnimal.setId((x[0][0][:1]).lower()+x[0][0][-1]+"0"+str(conta))
+        else:
+            infoAnimal.setId((x[0][0][:1]).lower()+x[0][0][-1]+str(conta))
+        infoAnimal.setNombres(x[0])
+        infoAnimal.setURL(x[-1])
+        infoAnimal.setInformacion(estado,calificacion,x[1][1],78)
+        conta+=1
+        lstAnimal.append(infoAnimal)
+    print(lstAnimal)
 crearInventario()

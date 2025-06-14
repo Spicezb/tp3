@@ -1,20 +1,2 @@
 Nutria marina
-Murciélago frutero
-Colibrí garganta de rubí
-Salamandra tigre
-Araña viuda negra
-Gusano de seda
-Pulpo común
-Mariposa monarca
-Tortuga boba
-Serpiente rey
-Rana toro
-Escarabajo rinoceronte
-Lagartija de cola azul
-Perro de las praderas
-Ardilla listada
-Camaleón pantera
-Gato montés
-Faisán común
-Lince ibérico
-Gavilán común
+Caballo

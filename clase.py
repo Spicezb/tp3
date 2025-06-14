@@ -15,8 +15,8 @@ class Animal:
     def setId(self,idN):
         self.id = idN
     
-    def setNombres(self,nombreN,nombreC):
-        self.nombres = (nombreN,nombreC)
+    def setNombres(self,nombres):
+        self.nombres = (nombres)
     
     def setURL(self,urlN):
         self.url = urlN
