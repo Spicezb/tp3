@@ -75,10 +75,6 @@ def crearInventario():
         infoAnimal.setInformacion(estado,calificacion,x[1][1],78)
         conta+=1
         lstAnimal.append(infoAnimal)
-<<<<<<< HEAD
-=======
     grabar(lstAnimal,"laLista")
-    print(lstAnimal)
 
->>>>>>> a6cb3ab2cd4a24fd5e59b392b4ab05a75e090be3
 crearInventario()
