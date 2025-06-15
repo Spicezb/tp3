@@ -20,10 +20,10 @@ def configVtnPrincipal():
     imgBtn=PhotoImage(file="imagenes/btnObtenerLista.png")
 
     lblFondo=Label(vtnPrincipal,image=imgFondo)
-    btn=Button(vtnPrincipal,image=imgBtn,borderwidth=0, highlightthickness=0,bg="#3C5520",activebackground="#3C5520")
-    btn1=Button(vtnPrincipal,image=imgBtn,borderwidth=0, highlightthickness=0,bg="#3C5520",activebackground="#3C5520")
-    btn2=Button(vtnPrincipal,image=imgBtn,borderwidth=0, highlightthickness=0,bg="#3C5520",activebackground="#3C5520")
-    btn3=Button(vtnPrincipal,image=imgBtn,borderwidth=0, highlightthickness=0,bg="#3C5520",activebackground="#3C5520")
+    btn=Button(vtnPrincipal,image=imgBtn,borderwidth=0, highlightthickness=0,bg="#193214",activebackground="#193214")
+    btn1=Button(vtnPrincipal,image=imgBtn,borderwidth=0, highlightthickness=0,bg="#193214",activebackground="#193214")
+    btn2=Button(vtnPrincipal,image=imgBtn,borderwidth=0, highlightthickness=0,bg="#193214",activebackground="#193214")
+    btn3=Button(vtnPrincipal,image=imgBtn,borderwidth=0, highlightthickness=0,bg="#193214",activebackground="#193214")
     btn.image_names=imgBtn
     btn1.image_names=imgBtn
     btn2.image_names=imgBtn
