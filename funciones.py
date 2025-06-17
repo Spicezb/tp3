@@ -3,6 +3,7 @@ from clase import *
 import pickle
 import time
 import random
+import csv
 
 #Definición de funciones
 def leer(archivo):
@@ -16,6 +17,20 @@ def leer(archivo):
     """
     base=open(archivo,"r")
     dicc=base.readlines()
+    base.close()
+    return dicc
+
+def leer2(archivo):
+    """
+    Funcionamiento:
+    - Lee el diccionario con la informacion de los pokemones que se encuentra en el archivo.
+    Entradas: 
+    - archivo(str): Es el archivo que contiene el diccionario con la información de los pokemones.
+    Salidas:
+    - Retorna el diccionario.
+    """
+    base=open(archivo,"rb")
+    dicc=pickle.load(base)
     base.close()
     return dicc
 
@@ -77,4 +92,119 @@ def crearInventario():
         lstAnimal.append(infoAnimal)
     grabar(lstAnimal,"laLista")
 
-crearInventario()
+def htmlOrden (lista,orden):
+    """
+    Entradas:
+    - lista(list): Lista de objetos.
+    - orden(tuple): Tupla que contiene la palabra del orden y la letra.
+    """
+    html = f"""
+    <!DOCTYPE html>
+    <html lang="es">
+    <head>
+        <meta charset="UTF-8">
+        <title>Animales {orden[0]}</title>
+        <style>
+            table {{
+                width: 85%;
+                border-collapse: collapse;
+                margin: 20px auto;
+            }}
+            th, td {{
+                border: 1px solid #666;
+                padding: 10px;
+                text-align: center;
+            }}
+            th {{
+                background-color: #004080;
+                color: white;
+            }}
+            tr:nth-child(odd) td {{
+                background-color: #e6f0ff;
+            }}
+            tr:nth-child(even) td {{
+                background-color: #ffffff;
+            }}
+            img {{
+                width: 100px;
+                height: auto;
+            }}
+            caption {{
+                font-size: 1.8em;
+                margin: 10px;
+                font-weight: bold;
+                color: #004080;
+            }}
+        </style>
+    </head>
+    <body>
+        <table>
+            <caption>Animales {orden[0]}</caption>
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Código</th>
+                    <th>Nombre común</th>
+                    <th>Nombre científico</th>
+                    <th>Imagen</th>
+                </tr>
+            </thead>
+            <tbody>
+    """
+    for i,animal in enumerate(lista):
+        datos=animal.getDatos()
+        if datos[3][2]!=orden[1]:
+            continue
+        id,nombre,nombreC,url=datos[0],datos[1][0],datos[1][1],datos[2]
+        print(url)
+        html += f"""
+                <tr>
+                    <td>{i+1}</td>
+                    <td>{id}</td>
+                    <td>{nombre}</td>
+                    <td><i>{nombreC}</i></td>
+                    <td><img src="{url}" alt="{nombre}"></td>
+                </tr>
+        """
+    html += """
+            </tbody>
+        </table>
+    </body>
+    </html>
+    """
+    arch = open("animalesPorOrden.html", "w", encoding="utf-8")
+    arch.write(html)
+    arch.close()
+
+def htmlOrdenAUX():
+    lista = leer2("laLista")
+    while True:
+        try:
+            opcion = input("\nIngrese la opción que desea.\n" \
+            "1) Carnívoros\n" \
+            "2) Herbívoros\n" \
+            "3) Omnívoros\n" \
+            "Opción: ")
+            if opcion not in ("1","2","3"):
+                raise ValueError
+            break
+        except ValueError:
+            print("Debe seleccionar una de las opciones anteriores.")
+    if opcion == "1":
+        orden = ("Carnívoros","C")
+    elif opcion == "2":
+        orden = ("Herbívoros","H")
+    else:
+        orden = ("Omnívoros","O")
+    htmlOrden(lista,orden)
+
+def generarCSV():
+    lista = leer2("laLista")
+    archivoCSV=open("animales.csv",mode="w", newline='',encoding="utf-8-sig")
+    reporte=csv.writer(archivoCSV,delimiter=",")
+    reporte.writerow(["ID","Nombre común","Nombre científico","Estado","Calificación","Orden","Peso","URL"])
+    for i in lista:
+        id,(nombreCom,nombreCie),url,[estado,calificacion,orden,peso]=i.getDatos()
+        reporte.writerow([id,nombreCom,nombreCie,estado,calificacion,orden,peso,url])
+    archivoCSV.close()
+    print("El reporte .CSV ha sido creado.")
