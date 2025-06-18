@@ -70,12 +70,16 @@ def crearInventario():
     lst=[]
     archivoAnimales=leer("animales.txt")
     for i in archivoAnimales:
+        print(".")
         i = i.strip()
         if i != "":
+            print(".")
             prompt=f"Dame el nombre popular y el científico, que tipo es, Carnivoro, Herbivoro o Omnivoro (RESPONDE SOLAMENTE CON ESAS 3 OPCIONES DE PALABRAS) y una url de una foto"\
                     f"de referencia del animal llamado '{i}', saca la informacion de Wikipedia." \
                     f"Responde solamente lo que te pedí, sin titulos ni explicaciones, quiero solamente la respuesta directa."
+            print(comunicacionGemini(prompt))
             lst.append(desglozarRespu(comunicacionGemini(prompt)))
+            print(".")
             time.sleep(5)
     for x in lst:
         estado=random.randint(1,5)
@@ -90,6 +94,7 @@ def crearInventario():
         infoAnimal.setInformacion(estado,calificacion,x[1][1],78)
         conta+=1
         lstAnimal.append(infoAnimal)
+        print(".")
     grabar(lstAnimal,"laLista")
 
 def htmlOrden (lista,orden):
@@ -208,3 +213,122 @@ def generarCSV():
         reporte.writerow([id,nombreCom,nombreCie,estado,calificacion,orden,peso,url])
     archivoCSV.close()
     print("El reporte .CSV ha sido creado.")
+
+
+def html():
+    lista=leer2("laLista")
+    lstH=[]
+    lstC=[]
+    lstO=[]
+    contC=0
+    contH=0
+    contO=0
+    conta=0
+    for i in lista:
+        lol=i.getDatos()
+        if lol[3][2] == "C":
+            lstC.append(lol)
+            contC+=1
+        elif lol[3][2] == "H":
+            lstH.append(lol)
+            contH+=1
+        else:
+            lstO.append(lol)
+            contO+=1
+    html="""
+    <!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tabla de animales</title>
+    <style>
+        table{
+            border-collapse: collapse;
+            width: 100%;
+            max-width: 600px;
+            margin: 20px auto;
+            font-family: Arial, sans-serif;}
+        
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+    </style>
+</head>
+<body>
+    <table>
+        <thead>
+            <tr>
+                <th>Orden</th>
+                <th>Peso</th>
+                <th>Nombre común</th>
+            </tr>
+        </thead>
+        <tbody>"""
+    for x in lstH:
+        if conta==0:
+            html+=f"""
+                <tr>
+                <td rowspan="{contH}">Herbívoros</td>
+                <tr>
+                <td>{x[3][3]}</td>
+                <td>{x[1][0]}</td>
+                </tr>"""
+            conta+=1
+        else:
+            html+=f"""
+                <tr>
+                <td>{x[3][3]}</td>
+                <td>{x[1][0]}</td>
+                </tr>"""
+    conta=0
+    for x in lstC:
+        if conta==0:
+            html+=f"""
+                <tr>
+                <td rowspan="{contC}">Carnivoros</td>
+                <td>{x[3][3]}</td>
+                <td>{x[1][0]}</td>
+                </tr>"""
+            conta+=1
+        else:
+            html+=f"""
+                <tr>
+                <td>{x[3][3]}</td>
+                <td>{x[1][0]}</td>
+                </tr>"""
+    conta=0
+    for x in lstO:
+        if conta==0:
+            html+=f"""
+            </tr>
+            <tr>
+            <td rowspan="{contO}">Omnivoros</td>
+            <td>{x[3][3]}</td>
+            <td>{x[1][0]}</td>
+            </tr>"""
+            conta+=1
+        else:
+            html+=f"""
+                <tr>
+                <td>{x[3][3]}</td>
+                <td>{x[1][0]}</td>
+                </tr>"""            
+    html+="""
+        </tbody>
+    </table>
+</body>
+</html>
+    """
+    arch = open("Reporte.html", "w", encoding="utf-8")
+    arch.write(html)
+    arch.close()
+html()
