@@ -403,7 +403,9 @@ def pdf(lista):
             pdfCalificacion.ln(5)
             pdfCalificacion.set_font('helvetica', '', 12)
             pdfCalificacion.cell(0, 10, f"{contaL}.       {j[0]}          {j[1]}",align='L')
+        contaL=0
     pdfCalificacion.output('reporteAplazados.pdf')
 
 lista=leer2("laLista")
+
 pdf(lista)

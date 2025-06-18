@@ -7,4 +7,5 @@ Cerdo
 iguana
 delfin
 tortuga
-perico
+Pato
+Gato
