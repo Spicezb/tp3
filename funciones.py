@@ -4,6 +4,8 @@ import pickle
 import time
 import random
 import csv
+from fpdf import FPDF
+# IMPORTANTE se debe de descargar la libreria fpdf.
 
 #Definición de funciones
 def leer(archivo):
@@ -97,7 +99,7 @@ def crearInventario():
         print(".")
     grabar(lstAnimal,"laLista")
 
-def htmlOrden (lista,orden):
+def htmlOrden(lista,orden):
     """
     Entradas:
     - lista(list): Lista de objetos.
@@ -182,7 +184,7 @@ def htmlOrden (lista,orden):
     arch.close()
 
 def htmlOrdenAUX():
-    lista = leer2("laLista")
+    lista=leer2("laLista")
     while True:
         try:
             opcion = input("\nIngrese la opción que desea.\n" \
@@ -352,3 +354,56 @@ def html():
     arch=open("Reporte.html", "w", encoding="utf-8")
     arch.write(html)
     arch.close()
+
+def reconocerEstados(lista):
+    estados={1:[],2:[],3:[],4:[],5:[]}
+    for i in lista:
+        datos=i.getDatos()
+        if datos[3][1] not in (1,2,3):
+            estados[datos[3][1]].append((datos[0],datos[1][0],datos[3][0]))
+        else:
+            estados[datos[3][1]].append((datos[0],datos[1][0]))
+    return estados
+
+def pdf(lista):
+    conta=1
+    contaL=0
+    dicc= reconocerEstados(lista)
+    """    for x in dicc:
+        for j in dicc[x]:
+            print(j[0], j[1])"""
+    pdfCalificacion=FPDF()                                # Se crea el objeto PDF.
+    pdfCalificacion.add_page()                             # Se pone una página.
+    pdfCalificacion.set_font("helvetica", "B", 16)             # Se le da formato a las letras.
+    pdfCalificacion.cell(0, 10, "Estadisticas por Calificación", align="C")
+    pdfCalificacion.ln(5)
+    for x in dicc:
+        pdfCalificacion.ln(10)
+        pdfCalificacion.set_font('helvetica', 'B', 14)
+        if conta==1:
+            pdfCalificacion.cell(0, 10, 'No marcado', align='L')
+            conta+=1
+        elif conta==2:
+            pdfCalificacion.cell(0, 10, 'Me Gusta', align='L')
+            conta+=1
+        elif conta==3:
+            pdfCalificacion.cell(0, 10, 'Favorito', align='L')
+            conta+=1
+        elif conta==4:
+            pdfCalificacion.cell(0, 10, 'Me entristese', align='L')
+            conta+=1
+        else:
+            pdfCalificacion.cell(0, 10, 'Me enoja', align='L')
+            conta+=1
+        pdfCalificacion.ln(5)
+        pdfCalificacion.set_font('helvetica', '', 12)
+        pdfCalificacion.cell(0, 10, "       Código      Nombre Común",align='L')    
+        for j in dicc[x]:
+            contaL+=1
+            pdfCalificacion.ln(5)
+            pdfCalificacion.set_font('helvetica', '', 12)
+            pdfCalificacion.cell(0, 10, f"{contaL}.       {j[0]}          {j[1]}",align='L')
+    pdfCalificacion.output('reporteAplazados.pdf')
+
+lista=leer2("laLista")
+pdf(lista)
