@@ -6,24 +6,34 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tabla de animales</title>
     <style>
-        table{
-            border-collapse: collapse;
-            width: 100%;
-            max-width: 600px;
-            margin: 20px auto;
-            font-family: Arial, sans-serif;}
-        
-        th, td {
-            border: 1px solid #ddd;
-            padding: 8px;
-            text-align: left;
+        body {
+                background-color: #2D3B2F;
+                font-family: 'Rye', cursive;
+                font-size: 18px;                          
         }
-        th {
-            background-color: #f2f2f2;
-        }
-        tr:nth-child(even) {
-            background-color: #f9f9f9;
-        }
+        table {
+                width: 85%;
+                border-collapse: collapse;
+                margin: 20px auto;
+            }
+            th, td {
+                border: 1px solid #5A3E1B;
+                padding: 10px;
+                text-align: center;
+            }
+            th {
+                background-color: #3E5637;
+                color: white;
+                font-size: 28px;
+            }
+            tr:nth-child(odd) td {
+                background-color: #A3A847;
+                color: white
+            }
+            tr:nth-child(even) td {
+                background-color: #F7E9BE;
+                color: black
+            }
     </style>
 </head>
 <body>
@@ -37,8 +47,7 @@
         </thead>
         <tbody>
                 <tr>
-                <td rowspan="5">Herbívoros</td>
-                <tr>
+                <td rowspan="4">Herbívoros</td>
                 <td>78</td>
                 <td>Caballo</td>
                 </tr>

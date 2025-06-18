@@ -38,14 +38,3 @@ class Animal:
     
     def getDatos(self):
         return (self.id,self.nombres,self.url,self.informacion)
-    
-
-
-
-
-
-html+=f"""
-                <tr>
-                <td>{x[3][3]}</td>
-                <td>{x[1][0]}</td>
-                </tr>"""

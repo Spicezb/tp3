@@ -216,6 +216,18 @@ def generarCSV():
 
 
 def html():
+    """
+    Funcionamiento:
+    - Genera un archivo HTML con una tabla que categoriza animales en tres grupos: carnívoros, herbívoros y omnívoros.
+    - Extrae datos desde un archivo o fuente mediante la función `leer2("laLista")`, organiza los animales según su tipo, y los muestra en una tabla estilizada.
+
+    Entradas:
+    - No recibe parámetros directamente. Utiliza internamente la función `leer2("laLista")` para obtener la lista de objetos.
+
+    Salidas:
+    - No retorna ningún valor.
+    - Crea un archivo llamado "Reporte.html" con una tabla que presenta el orden (carnívoro, herbívoro u omnívoro), el peso y el nombre común de los animales.
+    """
     lista=leer2("laLista")
     lstH=[]
     lstC=[]
@@ -225,15 +237,15 @@ def html():
     contO=0
     conta=0
     for i in lista:
-        lol=i.getDatos()
-        if lol[3][2] == "C":
-            lstC.append(lol)
+        datos=i.getDatos()
+        if datos[3][2] == "C":
+            lstC.append(datos)
             contC+=1
-        elif lol[3][2] == "H":
-            lstH.append(lol)
+        elif datos[3][2] == "H":
+            lstH.append(datos)
             contH+=1
         else:
-            lstO.append(lol)
+            lstO.append(datos)
             contO+=1
     html="""
     <!DOCTYPE html>
@@ -243,24 +255,34 @@ def html():
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tabla de animales</title>
     <style>
-        table{
-            border-collapse: collapse;
-            width: 100%;
-            max-width: 600px;
-            margin: 20px auto;
-            font-family: Arial, sans-serif;}
-        
-        th, td {
-            border: 1px solid #ddd;
-            padding: 8px;
-            text-align: left;
+        body {
+                background-color: #2D3B2F;
+                font-family: 'Rye', cursive;
+                font-size: 18px;                          
         }
-        th {
-            background-color: #f2f2f2;
-        }
-        tr:nth-child(even) {
-            background-color: #f9f9f9;
-        }
+        table {
+                width: 85%;
+                border-collapse: collapse;
+                margin: 20px auto;
+            }
+            th, td {
+                border: 1px solid #5A3E1B;
+                padding: 10px;
+                text-align: center;
+            }
+            th {
+                background-color: #3E5637;
+                color: white;
+                font-size: 28px;
+            }
+            tr:nth-child(odd) td {
+                background-color: #A3A847;
+                color: white
+            }
+            tr:nth-child(even) td {
+                background-color: #F7E9BE;
+                color: black
+            }
     </style>
 </head>
 <body>
@@ -278,7 +300,6 @@ def html():
             html+=f"""
                 <tr>
                 <td rowspan="{contH}">Herbívoros</td>
-                <tr>
                 <td>{x[3][3]}</td>
                 <td>{x[1][0]}</td>
                 </tr>"""
@@ -328,7 +349,6 @@ def html():
 </body>
 </html>
     """
-    arch = open("Reporte.html", "w", encoding="utf-8")
+    arch=open("Reporte.html", "w", encoding="utf-8")
     arch.write(html)
     arch.close()
-html()
