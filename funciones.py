@@ -436,7 +436,4 @@ def estaXEstado(lista):
         cantidades.append((cont,cont*100//20))
         cont=0
     return cantidades
-
-
 lista=leer2("laLista")
-estaXEstado(lista)

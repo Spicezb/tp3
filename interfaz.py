@@ -31,7 +31,8 @@ def configVtnPrincipal():
     btn3=Button(vtnPrincipal,image=imgBtn,borderwidth=0, highlightthickness=0,bg="#193214",activebackground="#193214")
     btnHtml=Button(vtnPrincipal,image=imgBtnHTML,borderwidth=0, highlightthickness=0,bg="#193214",activebackground="#193214", command=html())
     btnPDF=Button(vtnPrincipal,image=imgBtnPDF,borderwidth=0, highlightthickness=0,bg="#193214",activebackground="#193214", command=pdf(lista))
-    btnCSV=Button(vtnPrincipal,image=imgBtnCSV,borderwidth=0, highlightthickness=0,bg="#193214",activebackground="#193214", command=lambda: ventanaEstxEstado())
+    btnCSV=Button(vtnPrincipal,image=imgBtnCSV,borderwidth=0, highlightthickness=0,bg="#193214",activebackground="#193214", command=lambda: ventanaEstxEstado(lista))
+
     btn.image_names=imgBtn
     btn1.image_names=imgBtn
     btn2.image_names=imgBtn
@@ -40,6 +41,7 @@ def configVtnPrincipal():
     btnPDF.image_names=imgBtnPDF
     btnCSV.image_names=imgBtnCSV
     lblFondo.image_names=imgFondo
+
     lblFondo.place(x=-2,y=-2)
     btn.place(x=206, y=235)
     btn1.place(x=206, y=393)
