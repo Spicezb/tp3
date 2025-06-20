@@ -3,7 +3,7 @@ from funciones import *
 from ventanasHijas import *
 
 vtnPrincipal=Tk()
-def configVtnPrincipal():
+def configVtnPrincipal(lista,lista3):
     """
     Funcionamiento:
     - Es la ventana principal del programa.
@@ -27,7 +27,7 @@ def configVtnPrincipal():
     lblFondo=Label(vtnPrincipal,image=imgFondo)
     btn=Button(vtnPrincipal,image=imgBtn,borderwidth=0, highlightthickness=0,bg="#193214",activebackground="#193214")
     btn1=Button(vtnPrincipal,image=imgBtn,borderwidth=0, highlightthickness=0,bg="#193214",activebackground="#193214")
-    btn2=Button(vtnPrincipal,image=imgBtn,borderwidth=0, highlightthickness=0,bg="#193214",activebackground="#193214")
+    btn2=Button(vtnPrincipal,image=imgBtn,borderwidth=0, highlightthickness=0,bg="#193214",activebackground="#193214", command=lambda: ventanaMstInv(lista3))
     btn3=Button(vtnPrincipal,image=imgBtn,borderwidth=0, highlightthickness=0,bg="#193214",activebackground="#193214")
     btnHtml=Button(vtnPrincipal,image=imgBtnHTML,borderwidth=0, highlightthickness=0,bg="#193214",activebackground="#193214", command=html())
     btnPDF=Button(vtnPrincipal,image=imgBtnPDF,borderwidth=0, highlightthickness=0,bg="#193214",activebackground="#193214", command=pdf(lista))
@@ -51,8 +51,7 @@ def configVtnPrincipal():
     btnPDF.place(x=356, y=547)
     btnCSV.place(x=756, y=547)
 
-
-configVtnPrincipal()
-vtnPrincipal.mainloop()
-
+lista3=["https://inaturalist-open-data.s3.amazonaws.com/photos/129658776/original.jpg","https://cdn.britannica.com/22/65322-050-5AA2B60C/Common-wombat.jpg","https://cdn.sanity.io/images/5vm5yn1d/pro/5cb1f9400891d9da5a4926d7814bd1b89127ecba-1300x867.jpg?fm=webp&q=80","https://content.nationalgeographic.com.es/medio/2024/05/31/macho-jin-xi-en-el-zoo-de-madrid_355544e5_240531135148_800x800.jpg"]
 lista=leer2("laLista")
+configVtnPrincipal(lista,lista3)
+vtnPrincipal.mainloop()
