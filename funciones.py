@@ -72,16 +72,12 @@ def crearInventario():
     lst=[]
     archivoAnimales=leer("animales.txt")
     for i in archivoAnimales:
-        print(".")
         i = i.strip()
         if i != "":
-            print(".")
             prompt=f"Dame el nombre popular y el científico, que tipo es, Carnivoro, Herbivoro o Omnivoro (RESPONDE SOLAMENTE CON ESAS 3 OPCIONES DE PALABRAS) y una url de una foto"\
                     f"de referencia del animal llamado '{i}', saca la informacion de Wikipedia." \
                     f"Responde solamente lo que te pedí, sin titulos ni explicaciones, quiero solamente la respuesta directa."
-            print(comunicacionGemini(prompt))
             lst.append(desglozarRespu(comunicacionGemini(prompt)))
-            print(".")
             time.sleep(5)
     for x in lst:
         estado=random.randint(1,5)
@@ -92,8 +88,12 @@ def crearInventario():
         else:
             infoAnimal.setId((x[0][0][:1]).lower()+x[0][0][-1]+str(conta))
         infoAnimal.setNombres(x[0])
-        infoAnimal.setURL(x[-1])
-        infoAnimal.setInformacion(estado,calificacion,x[1][1],78)
+        infoAnimal.setURL(x[-1]) 
+        if x[1][1]!="H":
+            peso=round(random.uniform(0, 79), 2)
+        else:
+            peso=round(random.uniform(80, 100), 2)
+        infoAnimal.setInformacion(estado,calificacion,x[1][1],peso)
         conta+=1
         lstAnimal.append(infoAnimal)
         print(".")
@@ -222,10 +222,8 @@ def html():
     Funcionamiento:
     - Genera un archivo HTML con una tabla que categoriza animales en tres grupos: carnívoros, herbívoros y omnívoros.
     - Extrae datos desde un archivo o fuente mediante la función `leer2("laLista")`, organiza los animales según su tipo, y los muestra en una tabla estilizada.
-
     Entradas:
     - No recibe parámetros directamente. Utiliza internamente la función `leer2("laLista")` para obtener la lista de objetos.
-
     Salidas:
     - No retorna ningún valor.
     - Crea un archivo llamado "Reporte.html" con una tabla que presenta el orden (carnívoro, herbívoro u omnívoro), el peso y el nombre común de los animales.
@@ -356,6 +354,15 @@ def html():
     arch.close()
 
 def reconocerEstados(lista):
+    """
+    Funcionamiento:
+    - Clasifica objetos en un diccionario con claves del 1 al 5, dependiendo del valor en `datos[3][1]`.
+    - Si el valor no está en (1, 2, 3), se agrega también datos[3][0] a la tupla.
+    Entradas:
+    - lista (list): Lista de objetos con el método .getDatos().
+    Salidas:
+    - estados (dict): Diccionario con claves 1 a 5 y listas de tuplas con datos del objeto.
+    """
     estados={1:[],2:[],3:[],4:[],5:[]}
     for i in lista:
         datos=i.getDatos()
@@ -366,14 +373,25 @@ def reconocerEstados(lista):
     return estados
 
 def pdf(lista):
+    """
+    Funcionamiento:
+    - Genera un reporte en formato PDF con estadísticas organizadas por calificación emocional de los elementos recibidos.
+    - Agrupa los datos usando la función reconocerEstados() y los imprime en el PDF bajo títulos como 'Me gusta', 'Favorito', etc.
+    - A cada elemento listado se le asigna un número de orden, y se muestra su código y nombre común.
+    Entradas:
+    - lista (list): Lista de objetos, donde cada objeto debe tener un método .getDatos() que retorna una estructura con la información necesaria.
+    Salidas:
+    - No retorna ningún valor.
+    - Crea un archivo PDF llamado 'reporteCalificacion.pdf' que contiene las estadísticas por calificación.
+    """
     conta=1
     contaL=0
-    dicc= reconocerEstados(lista)
+    dicc=reconocerEstados(lista)
     """    for x in dicc:
         for j in dicc[x]:
             print(j[0], j[1])"""
-    pdfCalificacion=FPDF()                                # Se crea el objeto PDF.
-    pdfCalificacion.add_page()                             # Se pone una página.
+    pdfCalificacion=FPDF()                                     # Se crea el objeto PDF.
+    pdfCalificacion.add_page()                                 # Se pone una página.
     pdfCalificacion.set_font("helvetica", "B", 16)             # Se le da formato a las letras.
     pdfCalificacion.cell(0, 10, "Estadisticas por Calificación", align="C")
     pdfCalificacion.ln(5)
@@ -404,8 +422,21 @@ def pdf(lista):
             pdfCalificacion.set_font('helvetica', '', 12)
             pdfCalificacion.cell(0, 10, f"{contaL}.       {j[0]}          {j[1]}",align='L')
         contaL=0
-    pdfCalificacion.output('reporteAplazados.pdf')
+    pdfCalificacion.output('reporteCalificacion.pdf')
+
+def estaXEstado(lista):
+    cantidades=[]
+    cont=0
+    for x in range(1,6):
+        for i in lista:
+            lol=i.getDatos()
+            if lol[3][1]==x:
+                cont+=1
+            pass
+        cantidades.append((cont,cont*100//20))
+        cont=0
+    return cantidades
+
 
 lista=leer2("laLista")
-
-pdf(lista)
+estaXEstado(lista)
