@@ -9,6 +9,7 @@ import tkinter as tk
 from PIL import Image, ImageTk
 import requests
 from io import BytesIO
+from tkinter import messagebox
 
 # IMPORTANTE se debe de descargar la libreria fpdf.
 indice=0
@@ -93,7 +94,7 @@ def crearInventario():
         else:
             infoAnimal.setId((x[0][0][:1]).lower()+x[0][0][-1]+str(conta))
         infoAnimal.setNombres(x[0])
-        infoAnimal.setURL(x[-1]) 
+        infoAnimal.setURL(x[-1].replace("\n","")) 
         if x[1][1]!="H":
             peso=round(random.uniform(0, 79), 2)
         else:
@@ -104,7 +105,7 @@ def crearInventario():
         print(".")
     grabar(lstAnimal,"laLista")
 
-def htmlOrden(lista,orden):
+def htmlOrden(lista,orden,ventana):
     """
     Entradas:
     - lista(list): Lista de objetos.
@@ -117,25 +118,31 @@ def htmlOrden(lista,orden):
         <meta charset="UTF-8">
         <title>Animales {orden[0]}</title>
         <style>
+            body {{
+                background-color: #2D3B2F;
+                font-family: 'Rye', cursive;
+                font-size: 18px;                          
+            }}
             table {{
                 width: 85%;
                 border-collapse: collapse;
                 margin: 20px auto;
             }}
             th, td {{
-                border: 1px solid #666;
+                border: 1px solid #5A3E1B;
                 padding: 10px;
                 text-align: center;
             }}
             th {{
-                background-color: #004080;
+                background-color: #3E5637;
                 color: white;
             }}
             tr:nth-child(odd) td {{
-                background-color: #e6f0ff;
+                background-color: #A3A847;
+                color: white;
             }}
             tr:nth-child(even) td {{
-                background-color: #ffffff;
+                background-color: #F7E9BE;
             }}
             img {{
                 width: 100px;
@@ -145,7 +152,7 @@ def htmlOrden(lista,orden):
                 font-size: 1.8em;
                 margin: 10px;
                 font-weight: bold;
-                color: #004080;
+                color: white;
             }}
         </style>
     </head>
@@ -187,9 +194,11 @@ def htmlOrden(lista,orden):
     arch = open("animalesPorOrden.html", "w", encoding="utf-8")
     arch.write(html)
     arch.close()
+    messagebox.showinfo("Generar HTML","HTML generado exitosamente !!!")
+    ventana.destroy()
 
-def htmlOrdenAUX():
-    lista=leer2("laLista")
+
+def htmlOrdenAUX(lista,ventana):
     while True:
         try:
             opcion = input("\nIngrese la opción que desea.\n" \
@@ -208,20 +217,20 @@ def htmlOrdenAUX():
         orden = ("Herbívoros","H")
     else:
         orden = ("Omnívoros","O")
-    htmlOrden(lista,orden)
+    htmlOrden(lista,orden,ventana)
 
-def generarCSV():
-    lista = leer2("laLista")
+def generarCSV(lista,ventana):
     archivoCSV=open("animales.csv",mode="w", newline='',encoding="utf-8-sig")
-    reporte=csv.writer(archivoCSV,delimiter=",")
+    reporte=csv.writer(archivoCSV,delimiter=";")
     reporte.writerow(["ID","Nombre común","Nombre científico","Estado","Calificación","Orden","Peso","URL"])
     for i in lista:
         id,(nombreCom,nombreCie),url,[estado,calificacion,orden,peso]=i.getDatos()
         reporte.writerow([id,nombreCom,nombreCie,estado,calificacion,orden,peso,url])
     archivoCSV.close()
-    print("El reporte .CSV ha sido creado.")
+    messagebox.showinfo("Generar PDF","PDF generado exitosamente !!!")
+    ventana.destroy()
 
-def html():
+def html(ventana):
     """
     Funcionamiento:
     - Genera un archivo HTML con una tabla que categoriza animales en tres grupos: carnívoros, herbívoros y omnívoros.
@@ -356,6 +365,8 @@ def html():
     arch=open("Reporte.html", "w", encoding="utf-8")
     arch.write(html)
     arch.close()
+    messagebox.showinfo("Generar HTML","HTML generado exitosamente !!!")
+    ventana.destroy()
 
 def reconocerEstados(lista):
     """
@@ -376,7 +387,7 @@ def reconocerEstados(lista):
             estados[datos[3][1]].append((datos[0],datos[1][0]))
     return estados
 
-def pdf(lista):
+def pdf(lista,ventana):
     """
     Funcionamiento:
     - Genera un reporte en formato PDF con estadísticas organizadas por calificación emocional de los elementos recibidos.
@@ -427,6 +438,8 @@ def pdf(lista):
             pdfCalificacion.cell(0, 10, f"{contaL}.       {j[0]}          {j[1]}",align='L')
         contaL=0
     pdfCalificacion.output('reporteCalificacion.pdf')
+    messagebox.showinfo("Generar PDF","PDF generado exitosamente !!!")
+    ventana.destroy()
 
 def estaXEstado(lista):
     cantidades=[]
@@ -461,5 +474,3 @@ def mostrarInventario(vtn,lista):
             px=170
             py+=350
     mstImg.image_names(imagenes)
-
-lista=leer2("laLista")

@@ -1,0 +1,12 @@
+﻿ID;Nombre común;Nombre científico;Estado;Calificación;Orden;Peso;URL
+na1;Nutria marina; *Enhydra lutris*;1;1;C;15.08; https://upload.wikimedia.org/wikipedia/commons/thumb/9/9e/Sea_Otter_eating_a_clam.jpg/1280px-Sea_Otter_eating_a_clam.jpg
+co2;Caballo; *Equus ferus caballus*;2;1;H;81.81; https://upload.wikimedia.org/wikipedia/commons/thumb/7/7a/Horse_head_closeup.jpg/1280px-Horse_head_closeup.jpg
+va3;Vaca; *Bos taurus*;3;3;H;88.2; https://upload.wikimedia.org/wikipedia/commons/thumb/e/e0/Cow_cropped.jpg/1280px-Cow_cropped.jpg
+ce4;Coyote; *Canis latrans*;4;4;C;78.05; https://upload.wikimedia.org/wikipedia/commons/thumb/e/e7/Coyote_at_night.jpg/1280px-Coyote_at_night.jpg
+po5;Perro; *Canis familiaris*;1;2;O;14.52; https://upload.wikimedia.org/wikipedia/commons/thumb/a/a8/Canis_lupus_familiaris_puppy.jpg/1280px-Canis_lupus_familiaris_puppy.jpg
+co6;Cerdo; *Sus scrofa domesticus*;2;2;O;12.83; https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Domestic_pig.jpg/1280px-Domestic_pig.jpg
+ia7;Iguana; *Iguana iguana*;4;3;H;84.71; https://upload.wikimedia.org/wikipedia/commons/thumb/4/49/Iguana_iguana_001.jpg/1280px-Iguana_iguana_001.jpg
+dn8;Delfín; *Delphinus delphis*;3;5;C;66.43; https://upload.wikimedia.org/wikipedia/commons/thumb/d/d9/Delphinus_delphis_in_the_wild.jpg/1280px-Delphinus_delphis_in_the_wild.jpg
+ta9;Tortuga; *Testudines*;5;5;H;88.65; https://upload.wikimedia.org/wikipedia/commons/thumb/f/f8/Galapagos_Giant_Tortoise_%28Chelonoidis_nigra%29.jpg/1280px-Galapagos_Giant_Tortoise_%28Chelonoidis_nigra%29.jpg
+po10;Pato; *Anatidae*;5;5;O;8.0; https://upload.wikimedia.org/wikipedia/commons/thumb/4/42/Mallard_Anas_platyrhynchos_drake.jpg/1280px-Mallard_Anas_platyrhynchos_drake.jpg
+go011;Gato doméstico; *Felis catus*;3;1;C;78.37; https://upload.wikimedia.org/wikipedia/commons/thumb/4/4d/Domestic_Cat_sitting.jpg/1280px-Domestic_Cat_sitting.jpg
