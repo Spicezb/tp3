@@ -1,11 +1,51 @@
-Nutria marina
-Caballo
+Murciélago frutero
+Nutria de río
+Colibrí garganta de rubí
+Salamandra tigre
+Araña saltarina
+Gato montés
+Lobo gris
+Búho real
+Ardilla roja
+Liebre europea
+Canguro rojo
+Delfín mular
+Oso pardo
+Elefante africano
+Jirafa
+León africano
+Rinoceronte blanco
+Hipopótamo común
+Gorila occidental de llanura
+Chimpancé común
+Orangután de Borneo
+Lemur de cola anillada
+Lémur ratón gris
+Comadreja
+Erizo común
+Zorro rojo
+Tejón europeo
+Conejo europeo
+Ratón doméstico
+Rata noruega
+Cerdo doméstico
 Vaca
-Coyote
-Perro
-Cerdo
-iguana
-delfin
-tortuga
-Pato
-Gato
+Caballo
+Oveja doméstica
+Cabra doméstica
+Gallo doméstico
+Pato doméstico
+Ganso doméstico
+Perro doméstico
+Gato doméstico
+Canario
+Periquito común
+Serpiente rey
+Tortuga de caja oriental
+Lagarto cornudo
+Saltamontes
+Mariposa monarca
+Abeja melífera
+Hormiga negra
+Avispa común
+escarabajo ciervo volante

@@ -23,7 +23,7 @@ def leer(archivo):
     Salidas:
     - Retorna el diccionario.
     """
-    base=open(archivo,"r")
+    base=open(archivo,"r",encoding="utf-8")
     dicc=base.readlines()
     base.close()
     return dicc
@@ -57,13 +57,13 @@ def grabar(dicc,archivo):
     base.close()
     return ""
 
-def obtenerLista():
-    cant=int(input("Ingrese la cantidad de animales que desea buscar: "))
+def obtenerLista(cant,ventana):
     respuesta = comunicacionGemini(f"Necesito que tomes {cant} nombres comunes de animales, es importante que sean totalmente aleatorios y que no hayas dado en respuestas anteriores, desde wikipedia, un animal por línea. Dame solo los nombres en texo plano, intenta que sea el nombre común pero específico.")
     arch=open("animales.txt","w",encoding="UTF-8")
     arch.write(respuesta)
     arch.close()
-    return print("Los animales fueron agregados.")
+    messagebox.showinfo("Obtener lista","La lista fue generada exitosamente !!!")
+    ventana.destroy()
 
 def desglozarRespu(respuesta):
     partes=respuesta.split(",")
@@ -72,22 +72,26 @@ def desglozarRespu(respuesta):
     desglose=[nombres,informacion,partes[-1]]
     return(desglose)
 
-def crearInventario():
+def crearInventario(lista):
+    lista.clear()
     conta=1
-    lstAnimal=[]
     lst=[]
     archivoAnimales=leer("animales.txt")
+    lstABuscar=[]
     for i in archivoAnimales:
         i = i.strip()
         if i != "":
-            prompt=f"Dame el nombre popular y el científico, que tipo es, Carnivoro, Herbivoro o Omnivoro (RESPONDE SOLAMENTE CON ESAS 3 OPCIONES DE PALABRAS) y una url de una foto"\
-                    f"de referencia del animal llamado '{i}', saca la informacion de Wikipedia." \
-                    f"Responde solamente lo que te pedí, sin titulos ni explicaciones, quiero solamente la respuesta directa."
-            lst.append(desglozarRespu(comunicacionGemini(prompt)))
-            time.sleep(5)
+            lstABuscar.append(i)
+    animalesABusc=random.sample(lstABuscar,20)
+    for x in animalesABusc:
+        print(x)
+        prompt=f"Dame el nombre popular y el científico, que tipo es, Carnivoro, Herbivoro o Omnivoro (RESPONDE SOLAMENTE CON ESAS 3 OPCIONES DE PALABRAS) y una url de una foto"\
+                f"de referencia del animal llamado '{x}', saca la informacion de Wikipedia." \
+                f"Responde solamente lo que te pedí, sin titulos ni explicaciones, quiero solamente la respuesta directa."
+        lst.append(desglozarRespu(comunicacionGemini(prompt)))
+        time.sleep(5)
     for x in lst:
         estado=random.randint(1,5)
-        calificacion=int(input("1) No marcado\n2) Me gusta\n3)Favorito\n4) Me entristece\n5) Me enoja"))
         infoAnimal=Animal()
         if conta>10:
             infoAnimal.setId((x[0][0][:1]).lower()+x[0][0][-1]+"0"+str(conta))
@@ -99,11 +103,12 @@ def crearInventario():
             peso=round(random.uniform(0, 79), 2)
         else:
             peso=round(random.uniform(80, 100), 2)
-        infoAnimal.setInformacion(estado,calificacion,x[1][1],peso)
+        infoAnimal.setInformacion(estado,1,x[1][1],peso)
         conta+=1
-        lstAnimal.append(infoAnimal)
+        lista.append(infoAnimal)
         print(".")
-    grabar(lstAnimal,"laLista")
+    grabar(lista,"laLista")
+    return lista
 
 def htmlOrden(lista,orden,ventana):
     """
@@ -230,7 +235,7 @@ def generarCSV(lista,ventana):
     messagebox.showinfo("Generar PDF","PDF generado exitosamente !!!")
     ventana.destroy()
 
-def html(ventana):
+def html(lista,ventana):
     """
     Funcionamiento:
     - Genera un archivo HTML con una tabla que categoriza animales en tres grupos: carnívoros, herbívoros y omnívoros.
@@ -241,7 +246,6 @@ def html(ventana):
     - No retorna ningún valor.
     - Crea un archivo llamado "Reporte.html" con una tabla que presenta el orden (carnívoro, herbívoro u omnívoro), el peso y el nombre común de los animales.
     """
-    lista=leer2("laLista")
     lstH=[]
     lstC=[]
     lstO=[]
@@ -260,6 +264,9 @@ def html(ventana):
         else:
             lstO.append(datos)
             contO+=1
+    lstH.sort(key=lambda peso: peso[3][3], reverse=True)
+    lstC.sort(key=lambda peso: peso[3][3], reverse=True)
+    lstO.sort(key=lambda peso: peso[3][3], reverse=True)
     html="""
     <!DOCTYPE html>
 <html lang="es">
@@ -401,7 +408,8 @@ def pdf(lista,ventana):
     """
     conta=1
     contaL=0
-    dicc=reconocerEstados(lista)
+    lol=lista
+    dicc=reconocerEstados(lol)
     """    for x in dicc:
         for j in dicc[x]:
             print(j[0], j[1])"""

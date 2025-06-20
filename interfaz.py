@@ -3,7 +3,7 @@ from funciones import *
 from ventanasHijas import *
 
 vtnPrincipal=Tk()
-def configVtnPrincipal(lista,lista3):
+def configVtnPrincipal(lista3):
     """
     Funcionamiento:
     - Es la ventana principal del programa.
@@ -29,11 +29,11 @@ def configVtnPrincipal(lista,lista3):
     imgBtnOrden=PhotoImage(file="imagenes/btnOrden.png")
 
     lblFondo=Label(vtnPrincipal,image=imgFondo)
-    btn=Button(vtnPrincipal,image=imgBtn,borderwidth=0, highlightthickness=0,bg="#193214",activebackground="#193214")
-    btnCrearInven=Button(vtnPrincipal,image=imgBtnCrearInven,borderwidth=0, highlightthickness=0,bg="#193214",activebackground="#193214")
+    btn=Button(vtnPrincipal,image=imgBtn,borderwidth=0, highlightthickness=0,bg="#193214",activebackground="#193214", command=lambda: vtnBuscar(lista))
+    btnCrearInven=Button(vtnPrincipal,image=imgBtnCrearInven,borderwidth=0, highlightthickness=0,bg="#193214",activebackground="#193214",command=lambda: crearInventario(lista))
     btnBtnMostrarInven=Button(vtnPrincipal,image=imgBtnMostrarInven,borderwidth=0, highlightthickness=0,bg="#193214",activebackground="#193214", command=lambda: ventanaMstInv(lista3))
     btnEstaXEstad=Button(vtnPrincipal,image=imgBtnEstaXEstad,borderwidth=0, highlightthickness=0,bg="#193214",activebackground="#193214", command=lambda: ventanaEstxEstado(lista))
-    btnHtml=Button(vtnPrincipal,image=imgBtnHTML,borderwidth=0, highlightthickness=0,bg="#193214",activebackground="#193214", command=lambda: ventanaHTML())
+    btnHtml=Button(vtnPrincipal,image=imgBtnHTML,borderwidth=0, highlightthickness=0,bg="#193214",activebackground="#193214", command=lambda: ventanaHTML(lista))
     btnPDF=Button(vtnPrincipal,image=imgBtnPDF,borderwidth=0, highlightthickness=0,bg="#193214",activebackground="#193214", command=lambda: ventanaPDF(lista))
     btnCSV=Button(vtnPrincipal,image=imgBtnCSV,borderwidth=0, highlightthickness=0,bg="#193214",activebackground="#193214", command=lambda: ventanaCSV(lista))
     btnOrden=Button(vtnPrincipal,image=imgBtnOrden,borderwidth=0, highlightthickness=0,bg="#193214",activebackground="#193214", command=lambda: ventanaOrden(lista))
@@ -59,6 +59,7 @@ def configVtnPrincipal(lista,lista3):
     btnOrden.place(x=756, y=547)
 
 lista3=["https://inaturalist-open-data.s3.amazonaws.com/photos/129658776/original.jpg","https://cdn.britannica.com/22/65322-050-5AA2B60C/Common-wombat.jpg","https://cdn.sanity.io/images/5vm5yn1d/pro/5cb1f9400891d9da5a4926d7814bd1b89127ecba-1300x867.jpg?fm=webp&q=80","https://content.nationalgeographic.com.es/medio/2024/05/31/macho-jin-xi-en-el-zoo-de-madrid_355544e5_240531135148_800x800.jpg"]
+global lista
 lista=leer2("laLista")
-configVtnPrincipal(lista,lista3)
+configVtnPrincipal(lista3)
 vtnPrincipal.mainloop()
