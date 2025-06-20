@@ -5,8 +5,13 @@ import time
 import random
 import csv
 from fpdf import FPDF
-# IMPORTANTE se debe de descargar la libreria fpdf.
+import tkinter as tk
+from PIL import Image, ImageTk
+import requests
+from io import BytesIO
 
+# IMPORTANTE se debe de descargar la libreria fpdf.
+indice=0
 #Definición de funciones
 def leer(archivo):
     """
@@ -215,7 +220,6 @@ def generarCSV():
         reporte.writerow([id,nombreCom,nombreCie,estado,calificacion,orden,peso,url])
     archivoCSV.close()
     print("El reporte .CSV ha sido creado.")
-
 
 def html():
     """
@@ -437,6 +441,26 @@ def estaXEstado(lista):
         cont=0
     return cantidades
 
+def mostrarInventario(vtn,lista):
+    imagenes=[]
+    ini=indice
+    fin=ini+4
+    px=170
+    py=50
+    for i in lista[ini:fin]:
+        # imagen=requests.get(i.getURL())
+        imagen=requests.get(i)
+        imagenPil=Image.open(BytesIO(imagen.content))
+        imagenPil=imagenPil.resize((300,250))
+        imagenTK=ImageTk.PhotoImage(imagenPil)
+        imagenes.append(imagenTK)
+        mstImg=tk.Label(vtn,image=imagenTK)
+        mstImg.place(x=px,y=py)
+        px+=400
+        if px>570:
+            px=170
+            py+=350
+    mstImg.image_names(imagenes)
 
 lista=leer2("laLista")
 estaXEstado(lista)
