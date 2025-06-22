@@ -101,7 +101,7 @@ def ventanaMstInv(lista,lista2):
     vtnMstInv.geometry("1090x850+0+0")
     vtnMstInv.iconbitmap("imagenes/icono.ico")
     vtnMstInv.resizable(0,0)
-    mostrarInventario(vtnMstInv,lista)
+    mostrarInventario(vtnMstInv,lista,lista2,main.cont,0)
 
 def ventanaOrden(lista):
     vtnOrden = Toplevel()
