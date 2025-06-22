@@ -73,7 +73,7 @@ def desglozarRespu(respuesta):
     desglose=[nombres,informacion,partes[-1]]
     return(desglose)
 
-def crearInventario(lista):
+def crearInventario(lista,ventana):
     lista.clear()
     conta=1
     lst=[]
@@ -109,6 +109,8 @@ def crearInventario(lista):
         lista.append(infoAnimal)
         print(".")
     grabar(lista,"laLista")
+    messagebox.showinfo("Crear Inventario","EL inventario fue generado exitosamente !!!")
+    ventana.destroy()
     return lista
 
 def htmlOrden(lista,orden,ventana):

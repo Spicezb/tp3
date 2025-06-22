@@ -55,7 +55,7 @@ def ventanaPDF(lista):
     vtnPDF.configure(bg="#3C5520")
     vtnPDF.iconbitmap("imagenes/icono.ico")
     vtnPDF.resizable(0,0)
-    imgHTML=PhotoImage(file="imagenes/fondoHTML.png")
+    imgHTML=PhotoImage(file="imagenes/fondoPDF.png")
     imgBtnCancelar=PhotoImage(file="imagenes/btnCancelar.png")
     imgBtnAceptar=PhotoImage(file="imagenes/btnAceptar.png")
     lblFondo=Label(vtnPDF,image=imgHTML)
@@ -77,7 +77,7 @@ def ventanaCSV(lista):
     vtnCSV.configure(bg="#3C5520")
     vtnCSV.iconbitmap("imagenes/icono.ico")
     vtnCSV.resizable(0,0)
-    imgHTML=PhotoImage(file="imagenes/fondoHTML.png")
+    imgHTML=PhotoImage(file="imagenes/fondoCSV.png")
     imgBtnCancelar=PhotoImage(file="imagenes/btnCancelar.png")
     imgBtnAceptar=PhotoImage(file="imagenes/btnAceptar.png")
     lblFondo=Label(vtnCSV,image=imgHTML)
@@ -117,6 +117,29 @@ def ventanaOrden(lista):
     lblTitulo=Label(vtnOrden,text="¿Desea generar un PDF con las\n estadiscas de los animales?",bg="#193214",fg="#f7c760",font=("Fixedsys", 17))
     btnCancelar=Button(vtnOrden,image=imgBtnCancelar,borderwidth=0, highlightthickness=0,bg="#193214",activebackground="#193214", command=lambda: vtnOrden.destroy())
     btnAceptar=Button(vtnOrden,image=imgBtnAceptar,borderwidth=0, highlightthickness=0,bg="#193214",activebackground="#193214", command=lambda: htmlOrdenAUX(lista,vtnOrden))
+    lblFondo.image_names=imgHTML
+    btnCancelar.image_names=imgBtnCancelar
+    btnAceptar.image_names=imgBtnAceptar
+    lblFondo.place(x=-2,y=-2)
+    lblTitulo.place(x=150,y=120)
+    btnCancelar.place(x=450,y=250)
+    btnAceptar.place(x=150,y=250)
+
+
+def ventanaCrearInven(lista):
+    vtnCrearInven = Toplevel()
+    vtnCrearInven.title("Crear Inventario")
+    vtnCrearInven.geometry("794x445")
+    vtnCrearInven.configure(bg="#3C5520")
+    vtnCrearInven.iconbitmap("imagenes/icono.ico")
+    vtnCrearInven.resizable(0,0)
+    imgHTML=PhotoImage(file="imagenes/fondoCI.png")
+    imgBtnCancelar=PhotoImage(file="imagenes/btnCancelar.png")
+    imgBtnAceptar=PhotoImage(file="imagenes/btnAceptar.png")
+    lblFondo=Label(vtnCrearInven,image=imgHTML)
+    lblTitulo=Label(vtnCrearInven,text="¿Desea generar un inventario\ncon 20 animales?",bg="#193214",fg="#f7c760",font=("Fixedsys", 17))
+    btnCancelar=Button(vtnCrearInven,image=imgBtnCancelar,borderwidth=0, highlightthickness=0,bg="#193214",activebackground="#193214", command=lambda: vtnCrearInven.destroy())
+    btnAceptar=Button(vtnCrearInven,image=imgBtnAceptar,borderwidth=0, highlightthickness=0,bg="#193214",activebackground="#193214", command=lambda: crearInventario(lista,vtnCrearInven))
     lblFondo.image_names=imgHTML
     btnCancelar.image_names=imgBtnCancelar
     btnAceptar.image_names=imgBtnAceptar
