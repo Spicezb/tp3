@@ -9,6 +9,7 @@ import tkinter as tk
 from PIL import Image, ImageTk
 import requests
 from io import BytesIO
+from tkinter import messagebox
 
 # IMPORTANTE se debe de descargar la libreria fpdf.
 indice=0
@@ -23,7 +24,7 @@ def leer(archivo):
     Salidas:
     - Retorna el diccionario.
     """
-    base=open(archivo,"r")
+    base=open(archivo,"r",encoding="utf-8")
     dicc=base.readlines()
     base.close()
     return dicc
@@ -57,13 +58,13 @@ def grabar(dicc,archivo):
     base.close()
     return ""
 
-def obtenerLista():
-    cant=int(input("Ingrese la cantidad de animales que desea buscar: "))
+def obtenerLista(cant,ventana):
     respuesta = comunicacionGemini(f"Necesito que tomes {cant} nombres comunes de animales, es importante que sean totalmente aleatorios y que no hayas dado en respuestas anteriores, desde wikipedia, un animal por línea. Dame solo los nombres en texo plano, intenta que sea el nombre común pero específico.")
     arch=open("animales.txt","w",encoding="UTF-8")
     arch.write(respuesta)
     arch.close()
-    return print("Los animales fueron agregados.")
+    messagebox.showinfo("Obtener lista","La lista fue generada exitosamente !!!")
+    ventana.destroy()
 
 def desglozarRespu(respuesta):
     partes=respuesta.split(",")
@@ -72,40 +73,45 @@ def desglozarRespu(respuesta):
     desglose=[nombres,informacion,partes[-1]]
     return(desglose)
 
-def crearInventario():
+def crearInventario(lista):
+    lista.clear()
     conta=1
-    lstAnimal=[]
     lst=[]
     archivoAnimales=leer("animales.txt")
+    lstABuscar=[]
     for i in archivoAnimales:
         i = i.strip()
         if i != "":
-            prompt=f"Dame el nombre popular y el científico, que tipo es, Carnivoro, Herbivoro o Omnivoro (RESPONDE SOLAMENTE CON ESAS 3 OPCIONES DE PALABRAS) y una url de una foto"\
-                    f"de referencia del animal llamado '{i}', saca la informacion de Wikipedia." \
-                    f"Responde solamente lo que te pedí, sin titulos ni explicaciones, quiero solamente la respuesta directa."
-            lst.append(desglozarRespu(comunicacionGemini(prompt)))
-            time.sleep(5)
+            lstABuscar.append(i)
+    animalesABusc=random.sample(lstABuscar,20)
+    for x in animalesABusc:
+        print(x)
+        prompt=f"Dame el nombre popular y el científico, que tipo es, Carnivoro, Herbivoro o Omnivoro (RESPONDE SOLAMENTE CON ESAS 3 OPCIONES DE PALABRAS) y una url de una foto"\
+                f"de referencia del animal llamado '{x}', saca la informacion de Wikipedia." \
+                f"Responde solamente lo que te pedí, sin titulos ni explicaciones, quiero solamente la respuesta directa."
+        lst.append(desglozarRespu(comunicacionGemini(prompt)))
+        time.sleep(5)
     for x in lst:
         estado=random.randint(1,5)
-        calificacion=int(input("1) No marcado\n2) Me gusta\n3)Favorito\n4) Me entristece\n5) Me enoja"))
         infoAnimal=Animal()
         if conta>10:
             infoAnimal.setId((x[0][0][:1]).lower()+x[0][0][-1]+"0"+str(conta))
         else:
             infoAnimal.setId((x[0][0][:1]).lower()+x[0][0][-1]+str(conta))
         infoAnimal.setNombres(x[0])
-        infoAnimal.setURL(x[-1]) 
+        infoAnimal.setURL(x[-1].replace("\n","")) 
         if x[1][1]!="H":
             peso=round(random.uniform(0, 79), 2)
         else:
             peso=round(random.uniform(80, 100), 2)
-        infoAnimal.setInformacion(estado,calificacion,x[1][1],peso)
+        infoAnimal.setInformacion(estado,1,x[1][1],peso)
         conta+=1
-        lstAnimal.append(infoAnimal)
+        lista.append(infoAnimal)
         print(".")
-    grabar(lstAnimal,"laLista")
+    grabar(lista,"laLista")
+    return lista
 
-def htmlOrden(lista,orden):
+def htmlOrden(lista,orden,ventana):
     """
     Entradas:
     - lista(list): Lista de objetos.
@@ -118,25 +124,31 @@ def htmlOrden(lista,orden):
         <meta charset="UTF-8">
         <title>Animales {orden[0]}</title>
         <style>
+            body {{
+                background-color: #2D3B2F;
+                font-family: 'Rye', cursive;
+                font-size: 18px;                          
+            }}
             table {{
                 width: 85%;
                 border-collapse: collapse;
                 margin: 20px auto;
             }}
             th, td {{
-                border: 1px solid #666;
+                border: 1px solid #5A3E1B;
                 padding: 10px;
                 text-align: center;
             }}
             th {{
-                background-color: #004080;
+                background-color: #3E5637;
                 color: white;
             }}
             tr:nth-child(odd) td {{
-                background-color: #e6f0ff;
+                background-color: #A3A847;
+                color: white;
             }}
             tr:nth-child(even) td {{
-                background-color: #ffffff;
+                background-color: #F7E9BE;
             }}
             img {{
                 width: 100px;
@@ -146,7 +158,7 @@ def htmlOrden(lista,orden):
                 font-size: 1.8em;
                 margin: 10px;
                 font-weight: bold;
-                color: #004080;
+                color: white;
             }}
         </style>
     </head>
@@ -188,9 +200,11 @@ def htmlOrden(lista,orden):
     arch = open("animalesPorOrden.html", "w", encoding="utf-8")
     arch.write(html)
     arch.close()
+    messagebox.showinfo("Generar HTML","HTML generado exitosamente !!!")
+    ventana.destroy()
 
-def htmlOrdenAUX():
-    lista=leer2("laLista")
+
+def htmlOrdenAUX(lista,ventana):
     while True:
         try:
             opcion = input("\nIngrese la opción que desea.\n" \
@@ -209,20 +223,20 @@ def htmlOrdenAUX():
         orden = ("Herbívoros","H")
     else:
         orden = ("Omnívoros","O")
-    htmlOrden(lista,orden)
+    htmlOrden(lista,orden,ventana)
 
-def generarCSV():
-    lista = leer2("laLista")
+def generarCSV(lista,ventana):
     archivoCSV=open("animales.csv",mode="w", newline='',encoding="utf-8-sig")
-    reporte=csv.writer(archivoCSV,delimiter=",")
+    reporte=csv.writer(archivoCSV,delimiter=";")
     reporte.writerow(["ID","Nombre común","Nombre científico","Estado","Calificación","Orden","Peso","URL"])
     for i in lista:
         id,(nombreCom,nombreCie),url,[estado,calificacion,orden,peso]=i.getDatos()
         reporte.writerow([id,nombreCom,nombreCie,estado,calificacion,orden,peso,url])
     archivoCSV.close()
-    print("El reporte .CSV ha sido creado.")
+    messagebox.showinfo("Generar PDF","PDF generado exitosamente !!!")
+    ventana.destroy()
 
-def html():
+def html(lista,ventana):
     """
     Funcionamiento:
     - Genera un archivo HTML con una tabla que categoriza animales en tres grupos: carnívoros, herbívoros y omnívoros.
@@ -233,7 +247,6 @@ def html():
     - No retorna ningún valor.
     - Crea un archivo llamado "Reporte.html" con una tabla que presenta el orden (carnívoro, herbívoro u omnívoro), el peso y el nombre común de los animales.
     """
-    lista=leer2("laLista")
     lstH=[]
     lstC=[]
     lstO=[]
@@ -252,6 +265,9 @@ def html():
         else:
             lstO.append(datos)
             contO+=1
+    lstH.sort(key=lambda peso: peso[3][3], reverse=True)
+    lstC.sort(key=lambda peso: peso[3][3], reverse=True)
+    lstO.sort(key=lambda peso: peso[3][3], reverse=True)
     html="""
     <!DOCTYPE html>
 <html lang="es">
@@ -357,6 +373,8 @@ def html():
     arch=open("Reporte.html", "w", encoding="utf-8")
     arch.write(html)
     arch.close()
+    messagebox.showinfo("Generar HTML","HTML generado exitosamente !!!")
+    ventana.destroy()
 
 def reconocerEstados(lista):
     """
@@ -377,7 +395,7 @@ def reconocerEstados(lista):
             estados[datos[3][1]].append((datos[0],datos[1][0]))
     return estados
 
-def pdf(lista):
+def pdf(lista,ventana):
     """
     Funcionamiento:
     - Genera un reporte en formato PDF con estadísticas organizadas por calificación emocional de los elementos recibidos.
@@ -391,7 +409,8 @@ def pdf(lista):
     """
     conta=1
     contaL=0
-    dicc=reconocerEstados(lista)
+    lol=lista
+    dicc=reconocerEstados(lol)
     """    for x in dicc:
         for j in dicc[x]:
             print(j[0], j[1])"""
@@ -428,6 +447,8 @@ def pdf(lista):
             pdfCalificacion.cell(0, 10, f"{contaL}.       {j[0]}          {j[1]}",align='L')
         contaL=0
     pdfCalificacion.output('reporteCalificacion.pdf')
+    messagebox.showinfo("Generar PDF","PDF generado exitosamente !!!")
+    ventana.destroy()
 
 def estaXEstado(lista):
     cantidades=[]
