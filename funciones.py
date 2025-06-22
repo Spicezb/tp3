@@ -458,7 +458,7 @@ def estaXEstado(lista):
     for x in range(1,6):
         for i in lista:
             lol=i.getDatos()
-            if lol[3][1]==x:
+            if lol[3][0]==x:
                 cont+=1
             pass
         cantidades.append((cont,cont*100//20))
