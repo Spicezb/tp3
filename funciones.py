@@ -12,6 +12,7 @@ from io import BytesIO
 
 # IMPORTANTE se debe de descargar la libreria fpdf.
 indice=0
+imagenes=[]
 #Definición de funciones
 def leer(archivo):
     """
@@ -441,26 +442,97 @@ def estaXEstado(lista):
         cont=0
     return cantidades
 
-def mostrarInventario(vtn,lista):
+def avanzar(vtn,lista,lista2):
+    global indice
+    if indice+4<len(lista2):
+        indice+=4
+        mostrarInventario(vtn,lista2,lista,1,1)
+
+def retroceder(vtn,lista,lista2):
+    global indice
+    if indice>=4:
+        indice-=4
+        mostrarInventario(vtn,lista2,lista,1,1)
+
+def calificar(estrellas,cali,indice,ani):
+    # e,c,o,p=ani.getInformacion()
+    # ani.setInformacion(e,cali,o,p)
+    for i,j in enumerate(estrellas[indice]):
+        if i<cali-1:
+            j.config(text="⭐")
+        else:
+            j.config(text="☆")
+
+def cargarImagenes(vtn,lista,lista2):
+    global imagenes
     imagenes=[]
+    imagen=requests.get("https://media.istockphoto.com/id/928418862/es/vector/icono-de-calavera-y-huesos.jpg?s=612x612&w=0&k=20&c=4BTcXgsw_zTLkrf18ZVwol06fZviCwu1T2oDu4-wIaI=")
+    imagenPil=Image.open(BytesIO(imagen.content))
+    imagenPil=imagenPil.resize((300,250))
+    imagenCala=ImageTk.PhotoImage(imagenPil)
+    imagen=requests.get("https://static.vecteezy.com/system/resources/previews/029/338/731/non_2x/ambulance-car-illustration-emergency-medical-service-vehicle-isolated-on-white-background-vector.jpg")
+    imagenPil=Image.open(BytesIO(imagen.content))
+    imagenPil=imagenPil.resize((300,250))
+    imagenAmbu=ImageTk.PhotoImage(imagenPil)
+    imagen=requests.get("https://static.vecteezy.com/system/resources/previews/026/633/423/non_2x/museum-icon-symbol-design-illustration-vector.jpg")
+    imagenPil=Image.open(BytesIO(imagen.content))
+    imagenPil=imagenPil.resize((300,250))
+    imagenMus=ImageTk.PhotoImage(imagenPil)
+    for i,j in enumerate(lista2):
+        if lista[i].getInformacion()[0]==5:
+            imagenes.append(imagenCala)
+        elif lista[i].getInformacion()[0]==4:
+            imagenes.append(imagenMus)
+        elif lista[i].getInformacion()[0]==2 or lista[i].getInformacion()[0]==3:
+            imagenes.append(imagenAmbu)
+        else:
+            # imagen=requests.get(i.getURL())
+            imagen=requests.get(j)
+            imagenPil=Image.open(BytesIO(imagen.content))
+            imagenPil=imagenPil.resize((300,250))
+            imagenTK=ImageTk.PhotoImage(imagenPil)
+            imagenes.append(imagenTK)
+    vtn.imagenes=imagenes
+
+def mostrarInventario(vtn,lista,lista2,cont,ind):
+    global indice
+    if cont==0:
+        indice=0
+        cargarImagenes(vtn,lista2,lista)
+    if ind==0:
+        indice=0
+    btnsEstrellas=[]
     ini=indice
     fin=ini+4
-    px=170
-    py=50
-    for i in lista[ini:fin]:
-        # imagen=requests.get(i.getURL())
-        imagen=requests.get(i)
-        imagenPil=Image.open(BytesIO(imagen.content))
-        imagenPil=imagenPil.resize((300,250))
-        imagenTK=ImageTk.PhotoImage(imagenPil)
-        imagenes.append(imagenTK)
-        mstImg=tk.Label(vtn,image=imagenTK)
+    px=190
+    py=20
+    ava=tk.Button(vtn,text="-->",command=lambda: avanzar(vtn,lista2,lista))
+    ava.place(x=985,y=310)
+    retro=tk.Button(vtn,text="<--",command=lambda: retroceder(vtn,lista2,lista))
+    retro.place(x=95,y=310)
+    for m,i in enumerate(lista[ini:fin]):
+        estrellas=[]
+        mstImg=tk.Label(vtn,image=imagenes[ini+m])
         mstImg.place(x=px,y=py)
+        nombreN,nombreC=lista2[ini+m].getNombres()
+        frame=tk.Frame(vtn,width=200,height=25)
+        frame.place(x=px+50,y=py+260)
+        nombres=tk.Label(frame,text=f"{nombreN}, {nombreC}",anchor="center")
+        nombres.place(relx=0.5, rely=0.5, anchor="center") 
+        for j in range(2,6):
+            estado=lista2[ini+m].getInformacion()[0]
+            if (j in (2,3)) or (j==4 and estado in (2,5)) or (j==5 and estado==3):
+                boton=tk.Button(vtn,text="☆",width=2,command=lambda cali=j,indice=m,ani=i: calificar(btnsEstrellas,cali,indice,ani))
+                boton.place(x=px+93+30*(j-2),y=py+290)
+            else:
+                boton=tk.Button(vtn,text="☆",width=2)
+                boton.place(x=px+93+30*(j-2),y=py+290)
+            estrellas.append(boton)
+        btnsEstrellas.append(estrellas)
         px+=400
-        if px>570:
-            px=170
+        if px>600:
+            px=190
             py+=350
-    mstImg.image_names(imagenes)
 
 lista=leer2("laLista")
 estaXEstado(lista)

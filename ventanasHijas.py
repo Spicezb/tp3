@@ -1,5 +1,6 @@
 from tkinter import *
 from funciones import *
+import main
 
 def ventanaEstxEstado():
     cantidades=estaXEstado()
@@ -10,11 +11,13 @@ def ventanaEstxEstado():
     vtnEstxEstado.iconbitmap("imagenes/icono.ico")
     vtnEstxEstado.resizable(0,0)
 
-def ventanaMstInv(lista):
+def ventanaMstInv(lista,lista2):
+    main.cont+=1
+    main.cont2+=1
     vtnMstInv= Toplevel()
     vtnMstInv.configure(bg="#3C5520")
     vtnMstInv.title("Inventario")
     vtnMstInv.geometry("1090x850+0+0")
     vtnMstInv.iconbitmap("imagenes/icono.ico")
     vtnMstInv.resizable(0,0)
-    mostrarInventario(vtnMstInv,lista)
+    mostrarInventario(vtnMstInv,lista,lista2,main.cont-1,0)
