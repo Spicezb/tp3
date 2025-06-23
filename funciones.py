@@ -73,7 +73,7 @@ def desglozarRespu(respuesta):
     desglose=[nombres,informacion,partes[-1]]
     return(desglose)
 
-def obtener_imagen_wiki(nombre_animal):
+def buscarImagen(nombre_animal):
     try:
         search_url = "https://es.wikipedia.org/w/api.php"
         search_params = {"action": "query","format": "json","list": "search","srsearch": nombre_animal}
@@ -126,13 +126,14 @@ def crearInventario(lista,ventana):
         time.sleep(5)
     for x in lst:
         infoAnimal=Animal()
-        url=obtener_imagen_wiki(x[0][0])
+        url=buscarImagen(x[0][0])
         verificar=verificar_imagen(url)
         if verificar==True:
+            estado=1
             infoAnimal.setURL(url)
         else:
             infoAnimal.setURL("https://static.vecteezy.com/system/resources/previews/022/059/000/non_2x/no-image-available-icon-vector.jpg")
-        estado=random.randint(1,5)
+            estado=random.randint(2,5)
         if conta>10:
             infoAnimal.setId((x[0][0][:1]).lower()+x[0][0][-1]+"0"+str(conta))
         else:
