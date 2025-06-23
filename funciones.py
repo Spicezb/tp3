@@ -517,13 +517,16 @@ def retroceder(vtn,lista,lista2):
         mostrarInventario(vtn,lista2,lista,1,1)
 
 def calificar(estrellas,cali,indice,ani):
-    # e,c,o,p=ani.getInformacion()
-    # ani.setInformacion(e,cali,o,p)
-    for i,j in enumerate(estrellas[indice]):
-        if i<cali-1:
-            j.config(text="⭐")
-        else:
-            j.config(text="☆")
+    e,c,o,p=ani.getInformacion()
+    if c==cali:
+        ani.setInformacion(e,1,o,p)
+        estrellas[indice][cali-2].config(text="☆")
+    else:
+        for i in estrellas[indice]:
+            if i!=estrellas[indice][cali-2]:
+                i.config(text="☆")
+        ani.setInformacion(e,cali,o,p)
+        estrellas[indice][cali-2].config(text="⭐")
 
 def cargarImagenes(vtn,lista,lista2):
     global imagenes
@@ -577,14 +580,18 @@ def mostrarInventario(vtn,lista,lista2,cont,ind):
         mstImg=tk.Label(vtn,image=imagenes[ini+m])
         mstImg.place(x=px,y=py)
         nombreN,nombreC=lista2[ini+m].getNombres()
-        frame=tk.Frame(vtn,width=200,height=25)
-        frame.place(x=px+50,y=py+260)
+        frame=tk.Frame(vtn,width=300,height=25)
+        frame.place(x=px,y=py+260)
         nombres=tk.Label(frame,text=f"{nombreN}, {nombreC}",anchor="center")
         nombres.place(relx=0.5, rely=0.5, anchor="center") 
         for j in range(2,6):
             estado=lista2[ini+m].getInformacion()[0]
+            e,c,o,p=lista2[ini+m].getInformacion()
             if (j in (2,3)) or (j==4 and estado in (2,5)) or (j==5 and estado==3):
-                boton=tk.Button(vtn,text="☆",width=2,command=lambda cali=j,indice=m,ani=i: calificar(btnsEstrellas,cali,indice,ani))
+                if j==c:
+                    boton=tk.Button(vtn,text="⭐",width=2,command=lambda cali=j,indice=m,ani=lista2[m]: calificar(btnsEstrellas,cali,indice,ani))
+                else:
+                    boton=tk.Button(vtn,text="☆",width=2,command=lambda cali=j,indice=m,ani=lista2[m]: calificar(btnsEstrellas,cali,indice,ani))
                 boton.place(x=px+93+30*(j-2),y=py+290)
             else:
                 boton=tk.Button(vtn,text="☆",width=2)
@@ -595,6 +602,7 @@ def mostrarInventario(vtn,lista,lista2,cont,ind):
         if px>600:
             px=190
             py+=350
+    grabar(lista2,"laLista")
 
 lista=leer2("laLista")
 estaXEstado(lista)
