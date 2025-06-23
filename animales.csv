@@ -1,21 +1,21 @@
 ﻿ID;Nombre común;Nombre científico;Estado;Calificación;Orden;Peso;URL
-ca1;Cabra; *Capra aegagrus hircus*;4;1;H;89.43;https://static.vecteezy.com/system/resources/previews/022/059/000/non_2x/no-image-available-icon-vector.jpg
-eo2;Elefante africano; *Loxodonta africana*;2;1;H;86.7;https://static.vecteezy.com/system/resources/previews/022/059/000/non_2x/no-image-available-icon-vector.jpg
-la3;Liebre europea; *Lepus europaeus*;2;1;H;98.88;https://static.vecteezy.com/system/resources/previews/022/059/000/non_2x/no-image-available-icon-vector.jpg
-cn4;Chimpancé común; *Pan troglodytes*;3;1;O;2.55;https://upload.wikimedia.org/wikipedia/commons/thumb/4/42/015_Chimpanzee_at_Kibale_forest_National_Park_Photo_by_Giles_Laurent.jpg/960px-015_Chimpanzee_at_Kibale_forest_National_Park_Photo_by_Giles_Laurent.jpg
-ss5;Saltamontes; *Caelifera*;1;1;H;80.53;https://upload.wikimedia.org/wikipedia/commons/8/83/DesertLocust.jpeg
-ro6;Ratón doméstico; *Mus musculus*;1;1;O;17.8;https://upload.wikimedia.org/wikipedia/commons/thumb/0/0d/%D0%9C%D1%8B%D1%88%D1%8C_2.jpg/960px-%D0%9C%D1%8B%D1%88%D1%8C_2.jpg
-po7;Pato doméstico; *Anas platyrhynchos domesticus*;4;1;O;49.52;https://static.vecteezy.com/system/resources/previews/022/059/000/non_2x/no-image-available-icon-vector.jpg
-aa8;Ardilla roja; *Sciurus vulgaris*;5;1;H;99.11;https://static.vecteezy.com/system/resources/previews/022/059/000/non_2x/no-image-available-icon-vector.jpg
-cí9;Colibrí garganta de rubí; *Archilochus colubris*;3;1;C;22.33;https://static.vecteezy.com/system/resources/previews/022/059/000/non_2x/no-image-available-icon-vector.jpg
-pn10;Periquito común; *Melopsittacus undulatus*;1;1;H;83.51;https://static.vecteezy.com/system/resources/previews/022/059/000/non_2x/no-image-available-icon-vector.jpg
-se011;Salamandra tigre; *Ambystoma tigrinum*;4;1;C;31.51;https://static.vecteezy.com/system/resources/previews/022/059/000/non_2x/no-image-available-icon-vector.jpg
-oo012;Orangután de Borneo; *Pongo pygmaeus*;4;1;H;88.42;https://upload.wikimedia.org/wikipedia/commons/d/d3/OrangutanP1.jpg
-cn013;Conejo común; *Oryctolagus cuniculus*;1;1;H;92.84;https://upload.wikimedia.org/wikipedia/commons/thumb/3/37/Oryctolagus_cuniculus_Tasmania_2.jpg/960px-Oryctolagus_cuniculus_Tasmania_2.jpg
-lo014;Lagarto cornudo; *Phrynosoma cornutum*;1;1;H;99.47;https://static.vecteezy.com/system/resources/previews/022/059/000/non_2x/no-image-available-icon-vector.jpg
-tn015;Tejón común; *Meles meles*;4;1;O;37.91;https://static.vecteezy.com/system/resources/previews/022/059/000/non_2x/no-image-available-icon-vector.jpg
-ma016;Mariposa Monarca; *Danaus plexippus*;3;1;H;83.98;https://static.vecteezy.com/system/resources/previews/022/059/000/non_2x/no-image-available-icon-vector.jpg
-ra017;Rata noruega; *Rattus norvegicus*;5;1;O;46.88;https://upload.wikimedia.org/wikipedia/commons/0/01/Rattus_norvegicus_1.jpg
-ce018;Ciervo volante; *Lucanus cervus*;3;1;C;9.32;https://static.vecteezy.com/system/resources/previews/022/059/000/non_2x/no-image-available-icon-vector.jpg
-oa019;Oveja doméstica; *Ovis aries*;4;1;H;89.03;https://upload.wikimedia.org/wikipedia/commons/thumb/2/2c/Flock_of_sheep.jpg/960px-Flock_of_sheep.jpg
-go020;Gato doméstico; *Felis catus*;4;1;C;0.46;https://static.vecteezy.com/system/resources/previews/022/059/000/non_2x/no-image-available-icon-vector.jpg
+dr1;Delfín mular; *Tursiops truncatus*;5;1;C;16.98;https://upload.wikimedia.org/wikipedia/commons/thumb/1/10/Tursiops_truncatus_01.jpg/960px-Tursiops_truncatus_01.jpg
+aa2;Araña roja; *Tetranychus urticae*;4;1;H;80.26;https://static.vecteezy.com/system/resources/previews/022/059/000/non_2x/no-image-available-icon-vector.jpg
+ca3;Camaleón pantera; *Furcifer pardalis*;3;1;C;47.13;https://upload.wikimedia.org/wikipedia/commons/b/b8/Panther_Chameleon_%28Furcifer_pardalis%29.jpg
+tl4;Tortuga de caja oriental; *Terrapene carolina carolina*;1;1;O;23.39;https://static.vecteezy.com/system/resources/previews/022/059/000/non_2x/no-image-available-icon-vector.jpg
+zo5;Zorro rojo; *Vulpes vulpes*;5;1;C;76.75;https://upload.wikimedia.org/wikipedia/commons/thumb/c/c2/Vulpes_vulpes_2.jpg/960px-Vulpes_vulpes_2.jpg
+na6;Nutria marina; *Enhydra lutris*;1;1;C;71.7;https://static.vecteezy.com/system/resources/previews/022/059/000/non_2x/no-image-available-icon-vector.jpg
+ll7;Lagartija de cola azul; *Lacerta ocellata*;4;1;H;89.32;https://static.vecteezy.com/system/resources/previews/022/059/000/non_2x/no-image-available-icon-vector.jpg
+se8;Salamandra tigre; *Ambystoma tigrinum*;5;1;C;17.88;https://static.vecteezy.com/system/resources/previews/022/059/000/non_2x/no-image-available-icon-vector.jpg
+al9;Avispa de papel; *Polistes dominula*;4;1;C;9.2;https://static.vecteezy.com/system/resources/previews/022/059/000/non_2x/no-image-available-icon-vector.jpg
+se10;Serpiente rey del este; *Lampropeltis getula*;5;1;C;12.29;https://static.vecteezy.com/system/resources/previews/022/059/000/non_2x/no-image-available-icon-vector.jpg
+ma011;Mariposa Monarca; *Danaus plexippus*;1;1;H;81.71;https://static.vecteezy.com/system/resources/previews/022/059/000/non_2x/no-image-available-icon-vector.jpg
+al012;Ardilla gris oriental; *Sciurus carolinensis*;4;1;O;77.35;https://static.vecteezy.com/system/resources/previews/022/059/000/non_2x/no-image-available-icon-vector.jpg
+bo013;Búho cornudo; *Bubo virginianus*;1;1;C;20.25;https://static.vecteezy.com/system/resources/previews/022/059/000/non_2x/no-image-available-icon-vector.jpg
+pa014;Pulga; Siphonaptera;5;1;P;9.29;https://upload.wikimedia.org/wikipedia/commons/0/0a/Catflea_small.jpg
+ee015;Escarabajo rinoceronte; *Oryctes nasicornis*;3;1;H;83.87;https://static.vecteezy.com/system/resources/previews/022/059/000/non_2x/no-image-available-icon-vector.jpg
+sr016;Sapo corredor; *Anaxyrus boreas*;2;1;C;59.92;https://static.vecteezy.com/system/resources/previews/022/059/000/non_2x/no-image-available-icon-vector.jpg
+ls017;Lobo gris; *Canis lupus*;5;1;C;27.34;https://upload.wikimedia.org/wikipedia/commons/thumb/5/5a/Canis_lupus_265b.jpg/960px-Canis_lupus_265b.jpg
+ra018;Rana toro americana; *Lithobates catesbeianus*;3;1;C;67.08;https://upload.wikimedia.org/wikipedia/commons/thumb/a/aa/North-American-bullfrog1.jpg/960px-North-American-bullfrog1.jpg
+cí019;Colibrí garganta rubí; *Archilochus colubris*;2;1;C;30.7;https://static.vecteezy.com/system/resources/previews/022/059/000/non_2x/no-image-available-icon-vector.jpg
+mo020;Murciélago pardo; *Vespertilio murinus*;4;1;I;13.39;https://static.vecteezy.com/system/resources/previews/022/059/000/non_2x/no-image-available-icon-vector.jpg

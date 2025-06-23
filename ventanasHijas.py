@@ -92,7 +92,11 @@ def ventanaCSV(lista):
     btnCancelar.place(x=450,y=250)
     btnAceptar.place(x=150,y=250)
 
-def ventanaMstInv(lista,lista2):
+def ventanaMstInv(lista2):
+    lista=[]
+    for x in lista2:
+        lol=x.getURL()
+        lista.append(lol)
     main.cont+=1
     main.cont2+=1
     vtnMstInv= Toplevel()
