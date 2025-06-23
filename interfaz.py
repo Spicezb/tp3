@@ -3,6 +3,7 @@ from funciones import *
 from ventanasHijas import *
 import main
 cont=0
+
 vtnPrincipal=Tk()
 def configVtnPrincipal(lista):
     if main.cont2==0:
@@ -61,6 +62,11 @@ def configVtnPrincipal(lista):
     btnCSV.place(x=604, y=547)
     btnOrden.place(x=756, y=547)
 
-lista=leer2("laLista")
+global lista
+try:
+    lista=leer2("laLista")
+except:
+    lista=[]
 configVtnPrincipal(lista)
+
 vtnPrincipal.mainloop()

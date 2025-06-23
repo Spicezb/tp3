@@ -100,9 +100,13 @@ def ventanaMstInv(lista2):
     main.cont+=1
     main.cont2+=1
     vtnMstInv= Toplevel()
+    imgHTML=PhotoImage(file="imagenes/fondoMstInven.png")
+    lblFondo=Label(vtnMstInv,image=imgHTML)
+    lblFondo.image_names=imgHTML
+    lblFondo.place(x=-2,y=-2)
     vtnMstInv.configure(bg="#3C5520")
     vtnMstInv.title("Inventario")
-    vtnMstInv.geometry("1090x850+0+0")
+    vtnMstInv.geometry("1100x950+0+0")
     vtnMstInv.iconbitmap("imagenes/icono.ico")
     vtnMstInv.resizable(0,0)
     mostrarInventario(vtnMstInv,lista,lista2,main.cont-1,0)
@@ -169,7 +173,7 @@ def vtnBuscar(lista):
     vtnBsc.configure(bg="#193214")
     vtnBsc.title("Búsqueda de Animales")
     vtnBsc.iconbitmap("imagenes/icono.ico")
-    imgFondo=PhotoImage(file="imagenes/fondoPrincipal.png")
+    imgFondo=PhotoImage(file="imagenes/fondoOL.png")
     
     imgBtnAceptar=PhotoImage(file="imagenes/btnAceptar.png")
     imgBtnCancelar=PhotoImage(file="imagenes/btnCancelar.png")

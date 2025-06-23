@@ -74,37 +74,32 @@ def desglozarRespu(respuesta):
     return(desglose)
 
 def buscarImagen(nombre_animal):
-    try:
-        search_url = "https://es.wikipedia.org/w/api.php"
-        search_params = {"action": "query","format": "json","list": "search","srsearch": nombre_animal}
-        res = requests.get(search_url, params=search_params)
-        res.raise_for_status()
-        data = res.json()
-        if not data["query"]["search"]:
-            return None
-        titulo = data["query"]["search"][0]["title"]
-        image_params = {"action": "query","format": "json","prop": "pageimages","titles": titulo,"pithumbsize": 600}
-        img_res = requests.get(search_url, params=image_params)
-        img_res.raise_for_status()
-        img_data = img_res.json()
-        pages = img_data["query"]["pages"]
-        for page_id in pages:
-            page = pages[page_id]
-            if "thumbnail" in page:
-                return page["thumbnail"]["source"]
-        return None
-    except Exception as e:
-        print(f"Error al buscar '{nombre_animal}':", e)
-        return None
+    buscarEnAPI="https://es.wikipedia.org/w/api.php"
+    parametrosABuscar={"action": "query","format": "json","list": "search","srsearch": nombre_animal}
+    respuesta=requests.get(buscarEnAPI, params=parametrosABuscar)
+    respuesta.raise_for_status()
+    data=respuesta.json()
 
-def verificar_imagen(url):
+    animalBuscar=data["query"]["search"][0]["title"]
+    parametrosImagen={"action":"query","format":"json","prop":"pageimages","titles":animalBuscar}
+
+    respuestaImagen=requests.get(buscarEnAPI, params=parametrosImagen)
+    respuestaImagen.raise_for_status()
+    imagenInfo=respuestaImagen.json()
+
+    info=imagenInfo["query"]["pages"]
+    for i in info:
+        page=info[i]
+        if "thumbnail" in page:
+            return page["thumbnail"]["source"]
+
+def verificarImagen(url):
     try:
         r = requests.get(url, timeout=5)
         if r.status_code == 200 and "image" in r.headers.get("Content-Type", ""):
             return True
     except (requests.exceptions.RequestException, UnidentifiedImageError) as e:
-        print(f"❌ Imagen inválida en: {url} → {e}")
-    return False
+        return False
 
 def crearInventario(lista,ventana):
     lista.clear()
@@ -127,7 +122,7 @@ def crearInventario(lista,ventana):
     for x in lst:
         infoAnimal=Animal()
         url=buscarImagen(x[0][0])
-        verificar=verificar_imagen(url)
+        verificar=verificarImagen(url)
         if verificar==True:
             estado=1
             infoAnimal.setURL(url)
@@ -533,15 +528,15 @@ def cargarImagenes(vtn,lista,lista2):
     imagenes=[]
     imagen=requests.get("https://media.istockphoto.com/id/928418862/es/vector/icono-de-calavera-y-huesos.jpg?s=612x612&w=0&k=20&c=4BTcXgsw_zTLkrf18ZVwol06fZviCwu1T2oDu4-wIaI=")
     imagenPil=Image.open(BytesIO(imagen.content))
-    imagenPil=imagenPil.resize((300,250))
+    imagenPil=imagenPil.resize((275,210))
     imagenCala=ImageTk.PhotoImage(imagenPil)
     imagen=requests.get("https://static.vecteezy.com/system/resources/previews/029/338/731/non_2x/ambulance-car-illustration-emergency-medical-service-vehicle-isolated-on-white-background-vector.jpg")
     imagenPil=Image.open(BytesIO(imagen.content))
-    imagenPil=imagenPil.resize((300,250))
+    imagenPil=imagenPil.resize((275,210))
     imagenAmbu=ImageTk.PhotoImage(imagenPil)
     imagen=requests.get("https://static.vecteezy.com/system/resources/previews/026/633/423/non_2x/museum-icon-symbol-design-illustration-vector.jpg")
     imagenPil=Image.open(BytesIO(imagen.content))
-    imagenPil=imagenPil.resize((300,250))
+    imagenPil=imagenPil.resize((275,210))
     imagenMus=ImageTk.PhotoImage(imagenPil)
     for i,j in enumerate(lista2):
         if lista[i].getInformacion()[0]==5:
@@ -554,7 +549,7 @@ def cargarImagenes(vtn,lista,lista2):
             # imagen=requests.get(i.getURL())
             imagen=requests.get(j)
             imagenPil=Image.open(BytesIO(imagen.content))
-            imagenPil=imagenPil.resize((300,250))
+            imagenPil=imagenPil.resize((275,210))
             imagenTK=ImageTk.PhotoImage(imagenPil)
             imagenes.append(imagenTK)
     vtn.imagenes=imagenes
@@ -569,20 +564,20 @@ def mostrarInventario(vtn,lista,lista2,cont,ind):
     btnsEstrellas=[]
     ini=indice
     fin=ini+4
-    px=190
-    py=20
+    px=171
+    py=73
     ava=tk.Button(vtn,text="-->",command=lambda: avanzar(vtn,lista2,lista))
-    ava.place(x=985,y=310)
+    ava.place(x=1005,y=454)
     retro=tk.Button(vtn,text="<--",command=lambda: retroceder(vtn,lista2,lista))
-    retro.place(x=95,y=310)
+    retro.place(x=70,y=454)
     for m,i in enumerate(lista[ini:fin]):
         estrellas=[]
         mstImg=tk.Label(vtn,image=imagenes[ini+m])
         mstImg.place(x=px,y=py)
         nombreN,nombreC=lista2[ini+m].getNombres()
-        frame=tk.Frame(vtn,width=300,height=25)
-        frame.place(x=px,y=py+260)
-        nombres=tk.Label(frame,text=f"{nombreN}, {nombreC}",anchor="center")
+        frame=tk.Frame(vtn,width=380,height=30,bg="#eeb98f")
+        frame.place(x=px-50,y=py+245)
+        nombres=tk.Label(frame,text=f"{nombreN}, {nombreC}",anchor="center",bg="#eeb98f",font=("Fixedsys"))
         nombres.place(relx=0.5, rely=0.5, anchor="center") 
         for j in range(2,6):
             estado=lista2[ini+m].getInformacion()[0]
@@ -598,11 +593,8 @@ def mostrarInventario(vtn,lista,lista2,cont,ind):
                 boton.place(x=px+93+30*(j-2),y=py+290)
             estrellas.append(boton)
         btnsEstrellas.append(estrellas)
-        px+=400
-        if px>600:
-            px=190
-            py+=350
+        px+=470
+        if px>800:
+            px=171
+            py+=453
     grabar(lista2,"laLista")
-
-lista=leer2("laLista")
-estaXEstado(lista)
