@@ -6,7 +6,7 @@ import random
 import csv
 from fpdf import FPDF
 import tkinter as tk
-from PIL import Image, ImageTk
+from PIL import Image, ImageTk, UnidentifiedImageError
 import requests
 from io import BytesIO
 from tkinter import messagebox
@@ -74,56 +74,37 @@ def desglozarRespu(respuesta):
     return(desglose)
 
 def obtener_imagen_wiki(nombre_animal):
-    """
-    Funcionamiento:
-    - Busca en Wikipedia el nombre del animal y devuelve la URL de la imagen principal si existe.
-    Entradas:
-    - nombre_animal (str): nombre del animal a buscar en Wikipedia.
-    Salidas:
-    - str: URL directa de imagen (.jpg/.png), o None si no se encontró.
-    """
     try:
-        # Paso 1: Buscar el título exacto en Wikipedia (en español)
         search_url = "https://es.wikipedia.org/w/api.php"
-        search_params = {
-            "action": "query",
-            "format": "json",
-            "list": "search",
-            "srsearch": nombre_animal
-        }
+        search_params = {"action": "query","format": "json","list": "search","srsearch": nombre_animal}
         res = requests.get(search_url, params=search_params)
         res.raise_for_status()
         data = res.json()
-
         if not data["query"]["search"]:
             return None
-        
-        # Obtener el título del primer resultado
         titulo = data["query"]["search"][0]["title"]
-
-        # Paso 2: Obtener la imagen principal del artículo
-        image_params = {
-            "action": "query",
-            "format": "json",
-            "prop": "pageimages",
-            "titles": titulo,
-            "pithumbsize": 600  # tamaño de la imagen
-        }
+        image_params = {"action": "query","format": "json","prop": "pageimages","titles": titulo,"pithumbsize": 600}
         img_res = requests.get(search_url, params=image_params)
         img_res.raise_for_status()
         img_data = img_res.json()
-
         pages = img_data["query"]["pages"]
         for page_id in pages:
             page = pages[page_id]
             if "thumbnail" in page:
                 return page["thumbnail"]["source"]
-
-        return None  # No tenía imagen
-
+        return None
     except Exception as e:
         print(f"Error al buscar '{nombre_animal}':", e)
         return None
+
+def verificar_imagen(url):
+    try:
+        r = requests.get(url, timeout=5)
+        if r.status_code == 200 and "image" in r.headers.get("Content-Type", ""):
+            return True
+    except (requests.exceptions.RequestException, UnidentifiedImageError) as e:
+        print(f"❌ Imagen inválida en: {url} → {e}")
+    return False
 
 def crearInventario(lista,ventana):
     lista.clear()
@@ -144,15 +125,19 @@ def crearInventario(lista,ventana):
         lst.append(desglozarRespu(comunicacionGemini(prompt)))
         time.sleep(5)
     for x in lst:
-        url=obtener_imagen_wiki(x[0][0])
-        estado=random.randint(1,5)
         infoAnimal=Animal()
+        url=obtener_imagen_wiki(x[0][0])
+        verificar=verificar_imagen(url)
+        if verificar==True:
+            infoAnimal.setURL(url)
+        else:
+            infoAnimal.setURL("https://static.vecteezy.com/system/resources/previews/022/059/000/non_2x/no-image-available-icon-vector.jpg")
+        estado=random.randint(1,5)
         if conta>10:
             infoAnimal.setId((x[0][0][:1]).lower()+x[0][0][-1]+"0"+str(conta))
         else:
             infoAnimal.setId((x[0][0][:1]).lower()+x[0][0][-1]+str(conta))
         infoAnimal.setNombres(x[0])
-        infoAnimal.setURL(url) 
         if x[1][1]!="H":
             peso=round(random.uniform(0, 79), 2)
         else:
