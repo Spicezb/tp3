@@ -500,44 +500,84 @@ def estaXEstado(lista):
     return cantidades
 
 def avanzar(vtn,lista,lista2):
+    """
+    Funcionamiento:
+    - Permite avanzar de pestaña dentro del inventario.
+    Entradas:
+    - vtn: Es la ventana del inventario.
+    - lista(list): Es la lista con los objetos.
+    Salidas:
+    - Modifica el índice y muestra 4 animales distintos.
+    """
     global indice
     if indice+4<len(lista2):
         indice+=4
         mostrarInventario(vtn,lista2,lista,1,1)
 
 def retroceder(vtn,lista,lista2):
+    """
+    Funcionamiento:
+    - Permite retroceder de pestaña dentro del inventario.
+    Entradas:
+    - vtn: Es la ventana del inventario.
+    - lista(list): Es la lista con los objetos.
+    Salidas:
+    - Modifica el índice y muestra 4 animales distintos.
+    """
     global indice
     if indice>=4:
         indice-=4
         mostrarInventario(vtn,lista2,lista,1,1)
 
-def calificar(estrellas,cali,indice,ani):
-    e,c,o,p=ani.getInformacion()
-    if c==cali:
-        ani.setInformacion(e,1,o,p)
+def calificar(estrellas,cali,indice,ini,lista):
+    """
+    Funcionamiento:
+    - Permite calificar a cada animal dependiendo de su estado.
+    Entradas:
+    - estrellas(list): Es una matriz con los botones.
+    - cali(int): La calificación que se le va a asignar al animal.
+    - indice(int): Es el índice del animal en su grupo de 4.
+    - ini(int): Es el punto donde se inicia a contar según la pestaña.
+    - lista(list): Es la lista con los objetos.
+    Salidas:
+    - Cambia los botones y modifica las calificaciones de los animales, guarda la lista de objetos modificada.
+    """
+    e,c,o,p=lista[ini+indice].getInformacion()
+    if c==cali:     #Si se selecciona el que ya está marcado, la calificación vuelve a 1.
+        lista[ini+indice].setInformacion(e,1,o,p)
         estrellas[indice][cali-2].config(text="☆")
     else:
         for i in estrellas[indice]:
             if i!=estrellas[indice][cali-2]:
-                i.config(text="☆")
-        ani.setInformacion(e,cali,o,p)
+                i.config(text="☆")   #Los que no fueron seleccionados se resetean.
+        lista[ini+indice].setInformacion(e,cali,o,p)
         estrellas[indice][cali-2].config(text="⭐")
+    grabar(lista,"laLista")
 
 def cargarImagenes(vtn,lista,lista2):
+    """
+    Funcionamiento:
+    - Carga las imágenes de los animales en el formato correcto para crear los labels y dependiendo del estado puede mostrar una ambulancia, una calavera o un museo.
+    Entradas:
+    - vtn: Es la ventana del inventario.
+    - lista(list): Es la lista con los objetos.
+    Salidas:
+    - Carga las imágenes de los animales en el formato adecuado y guarda las referencias.
+    """
     global imagenes
     imagenes=[]
     imagen=requests.get("https://media.istockphoto.com/id/928418862/es/vector/icono-de-calavera-y-huesos.jpg?s=612x612&w=0&k=20&c=4BTcXgsw_zTLkrf18ZVwol06fZviCwu1T2oDu4-wIaI=")
     imagenPil=Image.open(BytesIO(imagen.content))
     imagenPil=imagenPil.resize((275,210))
-    imagenCala=ImageTk.PhotoImage(imagenPil)
+    imagenCala=ImageTk.PhotoImage(imagenPil)    #Se carga la imagen de la calavera.
     imagen=requests.get("https://static.vecteezy.com/system/resources/previews/029/338/731/non_2x/ambulance-car-illustration-emergency-medical-service-vehicle-isolated-on-white-background-vector.jpg")
     imagenPil=Image.open(BytesIO(imagen.content))
     imagenPil=imagenPil.resize((275,210))
-    imagenAmbu=ImageTk.PhotoImage(imagenPil)
+    imagenAmbu=ImageTk.PhotoImage(imagenPil)    #Se carga la imagen de la ambulancia.
     imagen=requests.get("https://static.vecteezy.com/system/resources/previews/026/633/423/non_2x/museum-icon-symbol-design-illustration-vector.jpg")
     imagenPil=Image.open(BytesIO(imagen.content))
     imagenPil=imagenPil.resize((275,210))
-    imagenMus=ImageTk.PhotoImage(imagenPil)
+    imagenMus=ImageTk.PhotoImage(imagenPil)   #Se carga el símbolo del museo.
     for i,j in enumerate(lista2):
         if lista[i].getInformacion()[0]==5:
             imagenes.append(imagenCala)
@@ -550,11 +590,22 @@ def cargarImagenes(vtn,lista,lista2):
             imagen=requests.get(j)
             imagenPil=Image.open(BytesIO(imagen.content))
             imagenPil=imagenPil.resize((275,210))
-            imagenTK=ImageTk.PhotoImage(imagenPil)
+            imagenTK=ImageTk.PhotoImage(imagenPil)     #Se guarda la imagen cargada en el formato corecto.
             imagenes.append(imagenTK)
     vtn.imagenes=imagenes
 
 def mostrarInventario(vtn,lista,lista2,cont,ind):
+    """
+    Funcionamiento:
+    - Muestra de 4 en cuatro las imágenes de los animales, y permite calificarlos mediante los botones.
+    Entradas:
+    - vtn: Es la ventana del inventario.
+    - lista(list): Es la lista con los objetos.
+    - cont(int): Es el contador para verificar si las imágenes ya fueron cargadas.
+    - ind(int): Es un entero que resetea el índice a 0 si así se necesita.
+    Salidas:
+    - Muestra las imágenes de los animales en grupos de 4.
+    """
     global indice
     if cont==0:
         indice=0
@@ -575,26 +626,24 @@ def mostrarInventario(vtn,lista,lista2,cont,ind):
         mstImg=tk.Label(vtn,image=imagenes[ini+m])
         mstImg.place(x=px,y=py)
         nombreN,nombreC=lista2[ini+m].getNombres()
-        frame=tk.Frame(vtn,width=380,height=30,bg="#eeb98f")
+        frame=tk.Frame(vtn,width=380,height=30,bg="#eeb98f")   #Se crea un marco para poner los nombres.
         frame.place(x=px-50,y=py+245)
         nombres=tk.Label(frame,text=f"{nombreN}, {nombreC}",anchor="center",bg="#eeb98f",font=("Fixedsys"))
         nombres.place(relx=0.5, rely=0.5, anchor="center") 
         for j in range(2,6):
-            estado=lista2[ini+m].getInformacion()[0]
             e,c,o,p=lista2[ini+m].getInformacion()
-            if (j in (2,3)) or (j==4 and estado in (2,5)) or (j==5 and estado==3):
-                if j==c:
-                    boton=tk.Button(vtn,text="⭐",width=2,command=lambda cali=j,indice=m,ani=lista2[m]: calificar(btnsEstrellas,cali,indice,ani))
+            if (j in (2,3)) or (j==4 and e in (2,5)) or (j==5 and e==3):
+                if j==c:   #Si el animal ya fue calificado el botón se muestra seleccionado.
+                    boton=tk.Button(vtn,text="⭐",width=2,command=lambda cali=j,indice=m: calificar(btnsEstrellas,cali,indice,ini,lista2))
                 else:
-                    boton=tk.Button(vtn,text="☆",width=2,command=lambda cali=j,indice=m,ani=lista2[m]: calificar(btnsEstrellas,cali,indice,ani))
+                    boton=tk.Button(vtn,text="☆",width=2,command=lambda cali=j,indice=m: calificar(btnsEstrellas,cali,indice,ini,lista2))
                 boton.place(x=px+93+30*(j-2),y=py+290)
             else:
-                boton=tk.Button(vtn,text="☆",width=2)
+                boton=tk.Button(vtn,text="☆",width=2)    #Si el animal no puede recibir la calificación, el botón no hace nada.
                 boton.place(x=px+93+30*(j-2),y=py+290)
             estrellas.append(boton)
-        btnsEstrellas.append(estrellas)
+        btnsEstrellas.append(estrellas)   #Guarda el botón en la matriz de botones.
         px+=470
-        if px>800:
+        if px>800:   #Se modifica la posición para la siguiente imagen.
             px=171
             py+=453
-    grabar(lista2,"laLista")
