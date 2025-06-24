@@ -10,6 +10,7 @@ from PIL import Image, ImageTk, UnidentifiedImageError
 import requests
 from io import BytesIO
 from tkinter import messagebox
+import re
 
 # IMPORTANTE se debe de descargar la libreria fpdf.
 indice=0
@@ -59,6 +60,15 @@ def grabar(dicc,archivo):
     return ""
 
 def obtenerLista(cant,ventana):
+    try:
+        if not re.match(r"^[0-9]{1,}$", cant):
+            raise TypeError
+        elif int(cant)<20:
+            raise TypeError
+    except TypeError:
+        messagebox.showerror("Error","La cantidad debe de ser un número entero mayor o igual a 20.")
+        return ventana.deiconify()
+
     respuesta = comunicacionGemini(f"Necesito que tomes {cant} nombres comunes de animales, es importante que sean totalmente aleatorios y que no hayas dado en respuestas anteriores, desde wikipedia, un animal por línea. Dame solo los nombres en texo plano, intenta que sea el nombre común pero específico.")
     arch=open("animales.txt","w",encoding="UTF-8")
     arch.write(respuesta)
@@ -240,22 +250,13 @@ def htmlOrden(lista,orden,ventana):
     ventana.destroy()
 
 
-def htmlOrdenAUX(lista,ventana):
-    while True:
-        try:
-            opcion = input("\nIngrese la opción que desea.\n" \
-            "1) Carnívoros\n" \
-            "2) Herbívoros\n" \
-            "3) Omnívoros\n" \
-            "Opción: ")
-            if opcion not in ("1","2","3"):
-                raise ValueError
-            break
-        except ValueError:
-            print("Debe seleccionar una de las opciones anteriores.")
-    if opcion == "1":
+def htmlOrdenAUX(opcion, lista,ventana):
+    if opcion == "":
+        messagebox.showerror("Error","Debe de elegir un orden.")
+        return ventana.deiconify()
+    elif opcion == "Carnívoros":
         orden = ("Carnívoros","C")
-    elif opcion == "2":
+    elif opcion == "Herbívoros":
         orden = ("Herbívoros","H")
     else:
         orden = ("Omnívoros","O")
@@ -269,7 +270,7 @@ def generarCSV(lista,ventana):
         id,(nombreCom,nombreCie),url,[estado,calificacion,orden,peso]=i.getDatos()
         reporte.writerow([id,nombreCom,nombreCie,estado,calificacion,orden,peso,url])
     archivoCSV.close()
-    messagebox.showinfo("Generar PDF","PDF generado exitosamente !!!")
+    messagebox.showinfo("Generar CSV","CSV generado exitosamente !!!")
     ventana.destroy()
 
 def html(lista,ventana):

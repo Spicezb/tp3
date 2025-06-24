@@ -1,5 +1,6 @@
 from tkinter import *
 from funciones import *
+from tkinter import ttk
 import main
 
 def ventanaEstxEstado(lista):
@@ -113,7 +114,7 @@ def ventanaMstInv(lista2):
 
 def ventanaOrden(lista):
     vtnOrden = Toplevel()
-    vtnOrden.title("Generar CSV")
+    vtnOrden.title("Generar HTML eb orden")
     vtnOrden.geometry("794x445")
     vtnOrden.configure(bg="#3C5520")
     vtnOrden.iconbitmap("imagenes/icono.ico")
@@ -122,13 +123,21 @@ def ventanaOrden(lista):
     imgBtnCancelar=PhotoImage(file="imagenes/btnCancelar.png")
     imgBtnAceptar=PhotoImage(file="imagenes/btnAceptar.png")
     lblFondo=Label(vtnOrden,image=imgHTML)
-    lblTitulo=Label(vtnOrden,text="¿Desea generar un PDF con las\n estadiscas de los animales?",bg="#193214",fg="#f7c760",font=("Fixedsys", 17))
+    lblTitulo=Label(vtnOrden,text="¿Desea generar un HTML con las\n estadiscas de los animales?",bg="#193214",fg="#f7c760",font=("Fixedsys", 17))
+    lblORden=Label(vtnOrden,text="Orden:",bg="#193214",fg="#f7c760",font=("Fixedsys", 17))
     btnCancelar=Button(vtnOrden,image=imgBtnCancelar,borderwidth=0, highlightthickness=0,bg="#193214",activebackground="#193214", command=lambda: vtnOrden.destroy())
-    btnAceptar=Button(vtnOrden,image=imgBtnAceptar,borderwidth=0, highlightthickness=0,bg="#193214",activebackground="#193214", command=lambda: htmlOrdenAUX(lista,vtnOrden))
+    cbxDeci=ttk.Combobox(vtnOrden, font=("Fixedsys", 24), width=10)
+    lstDeci=["Carnívoros","Herbívoros","Omnívoros"]
+    cbxDeci["values"]=lstDeci
+    cbxDeci.delete(0, END)
+    cbxDeci.configure(state="readonly")
+    btnAceptar=Button(vtnOrden,image=imgBtnAceptar,borderwidth=0, highlightthickness=0,bg="#193214",activebackground="#193214", command=lambda: htmlOrdenAUX(cbxDeci.get(),lista,vtnOrden))
     lblFondo.image_names=imgHTML
     btnCancelar.image_names=imgBtnCancelar
     btnAceptar.image_names=imgBtnAceptar
     lblFondo.place(x=-2,y=-2)
+    cbxDeci.place(x=380,y=194)
+    lblORden.place(x=270,y=194)
     lblTitulo.place(x=150,y=120)
     btnCancelar.place(x=450,y=250)
     btnAceptar.place(x=150,y=250)
