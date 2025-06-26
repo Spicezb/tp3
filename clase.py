@@ -1,3 +1,8 @@
+# Realizado Por Luis Guillermo Alfaro Chacón y Xavier Céspedes Alvarado
+# Fecha de inicio 15/05/2025 a las 18:00
+# Última modificación 26/06/2025 02:30
+# Versión de Python 3.13.2
+
 class Animal:
     # Definición de atributos
     id = ""

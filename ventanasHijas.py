@@ -1,9 +1,24 @@
+# Realizado Por Luis Guillermo Alfaro Chacón y Xavier Céspedes Alvarado
+# Fecha de inicio 15/05/2025 a las 18:00
+# Última modificación 26/06/2025 02:30
+# Versión de Python 3.13.2
+# Importaciones de Librerías
 from tkinter import *
 from funciones import *
 from tkinter import ttk
 import main
 
 def ventanaEstxEstado(lista):
+    """
+    Funcionamiento:
+    - Crea una ventana para mostrar una estadística de los animales agrupados por estado.
+    - Obtiene la cantidad y porcentaje de animales en cada estado mediante la función estaXEstado.
+    - Para cada estado, crea y muestra dos etiquetas que muestran la cantidad y el porcentaje correspondiente.
+    Entradas:
+    - lista (list): Lista de objetos `Animal` cuyo estado será analizado para generar las estadísticas.
+    Salidas:
+    - Muestra la ventana con las estadísticas de cantidad y porcentaje por estado de los animales.
+    """
     y=280
     y2=280
     cantidades=estaXEstado(lista)
@@ -28,6 +43,14 @@ def ventanaEstxEstado(lista):
         y2+=80
 
 def ventanaHTML(lista):
+    """
+    Funcionamiento:
+    - Crea una ventana emergente que pregunta al usuario si desea generar un archivo HTML con las estadísticas de los animales.
+    Entradas:
+    - lista (list): Lista de animales cuyos datos se exportarán al archivo HTML.
+    Salidas:
+    - La función generarCSV crea el archivo HTML con la información de los animales.
+    """
     vtnHTML = Toplevel()
     vtnHTML.title("Generar HTML")
     vtnHTML.geometry("794x445")
@@ -50,6 +73,14 @@ def ventanaHTML(lista):
     btnAceptar.place(x=150,y=250)
 
 def ventanaPDF(lista):
+    """
+    Funcionamiento:
+    - Crea una ventana emergente que pregunta al usuario si desea generar un archivo PDF con las calificaciones de los animales.
+    Entradas:
+    - lista (list): Lista de animales cuyos datos se exportarán al archivo PDF.
+    Salidas:
+    - La función generarCSV crea el archivo PDF con la información de los animales.
+    """
     vtnPDF = Toplevel()
     vtnPDF.title("Generar PDF")
     vtnPDF.geometry("794x445")
@@ -72,6 +103,14 @@ def ventanaPDF(lista):
     btnAceptar.place(x=150,y=250)
 
 def ventanaCSV(lista):
+    """
+    Funcionamiento:
+    - Crea una ventana emergente que pregunta al usuario si desea generar un archivo CSV con las estadísticas de los animales.
+    Entradas:
+    - lista (list): Lista de animales cuyos datos se exportarán al archivo CSV.
+    Salidas:
+    - La función generarCSV crea el archivo CSV con la información de los animales.
+    """
     vtnCSV = Toplevel()
     vtnCSV.title("Generar CSV")
     vtnCSV.geometry("794x445")
@@ -94,6 +133,16 @@ def ventanaCSV(lista):
     btnAceptar.place(x=150,y=250)
 
 def ventanaMstInv(lista2):
+    """
+    Funcionamiento:
+    - Crea una ventana secundaria para mostrar el inventario de animales.
+    - Extrae las URLs de las imágenes de cada animal en la lista recibida y las almacena en una nueva lista..
+    - Llama a la función mostrarInventario para desplegar el inventario con las imágenes y datos correspondientes.
+    Entradas:
+    - lista2 (list): Lista de objetos `Animal` desde la cual se extraen las URLs y datos para mostrar.
+    Salidas:
+    - Muestra la ventana con el inventario desplegado.
+    """
     lista=[]
     for x in lista2:
         lol=x.getURL()
@@ -113,6 +162,14 @@ def ventanaMstInv(lista2):
     mostrarInventario(vtnMstInv,lista,lista2,main.cont-1,0)
 
 def ventanaOrden(lista):
+    """
+    Funcionamiento:
+    - Crea una ventana emergente para que el usuario seleccione un orden específico (Carnívoros, Herbívoros u Omnívoros) para generar un HTML con estadísticas de animales.
+    Entradas:
+    - lista (list): Lista de animales que será filtrada para generar el HTML.
+    Salidas:
+    - La función htmlOrdenAUX gestiona la generación del archivo HTML basado en la opción seleccionada.
+    """
     vtnOrden = Toplevel()
     vtnOrden.title("Generar HTML eb orden")
     vtnOrden.geometry("794x445")
@@ -143,7 +200,16 @@ def ventanaOrden(lista):
     btnAceptar.place(x=150,y=250)
 
 
-def ventanaCrearInven(lista):
+def ventanaCrearInven(lista,btn):
+    """
+    Funcionamiento:
+    - Crea una ventana emergente para confirmar si el usuario desea generar un inventario con 20 animales.
+    Entradas:
+    - lista (list): Lista de animales que será utilizada para crear el inventario.
+    Salidas:
+    - La función crearInventario modifica la lista con el inventario generado.
+    """
+    btn.config(state=NORMAL)
     vtnCrearInven = Toplevel()
     vtnCrearInven.title("Crear Inventario")
     vtnCrearInven.geometry("794x445")
@@ -165,17 +231,17 @@ def ventanaCrearInven(lista):
     btnCancelar.place(x=450,y=250)
     btnAceptar.place(x=150,y=250)
 
-def vtnBuscar(lista):
+def vtnBuscar(lista,estado2):
     """
     Funcionamiento:
-    - Interfaz para Buscar la cantidad de Pokémons a escoger en la API.
-    - Es una ventana Emergente donde contiene 2 Etiquetas, 2 botones y una caja de texto.
+    - Crea una ventana secundaria para que el usuario ingrese la cantidad deseada de animales.
     Entradas:
-    - dicc(dict): Contiene la informacion de todos los pokemons.
-    - elementos de la ventana prinicpal
+    - lista (list): Lista que se devuelve sin modificar.
+    - estado2 (tkinter.Widget): boton externo que se habilita.
     Salidas:
-    - Aparece una alerta de que el la busqueda due exitosa.
+    - tuple: Retorna la tupla (lista, estado2) sin modificaciones.
     """
+    estado2.config(state=NORMAL)
     vtnBsc = Toplevel()
     vtnBsc.geometry("1090x850+0+0")
     vtnBsc.resizable(0,0)
@@ -202,4 +268,4 @@ def vtnBuscar(lista):
     tbxCantidad.place(x=500,y=350)
     btnAceptar.place(x=300,y=480)
     btnCancelar.place(x=600,y=480)
-    return lista
+    return lista, estado2
