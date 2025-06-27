@@ -2,13 +2,16 @@
 # Fecha de inicio 15/05/2025 a las 18:00
 # Última modificación 26/06/2025 02:30
 # Versión de Python 3.13.2
+
 # Importaciones de Librerías
 from tkinter import *
 from funciones import *
 from ventanasHijas import *
 import main
+
 cont=0
 vtnPrincipal=Tk()
+
 # Definicion de Funciones
 def configVtnPrincipal(lista,estado1,estados,estado3):
     if main.cont2==0:
@@ -66,6 +69,7 @@ def configVtnPrincipal(lista,estado1,estados,estado3):
     btnPDF.place(x=356, y=547)
     btnCSV.place(x=604, y=547)
     btnOrden.place(x=756, y=547)
+
 global lista, estado1, estados, estado3
 
 try:

@@ -3,6 +3,7 @@ import google.generativeai as genai
 # Fecha de inicio 15/05/2025 a las 18:00
 # Última modificación 26/06/2025 02:30
 # Versión de Python 3.13.2
+
 # Importaciones de Librerías
 # Se necesita instalar la libreria google-generativeai
 
