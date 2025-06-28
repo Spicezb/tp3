@@ -69,7 +69,7 @@ def grabar(dicc,archivo):
     base.close()
     return ""
 
-def obtenerLista(cant,ventana):
+def obtenerLista(cant,ventana,estado2):
     """
     Funcionamiento:
     - Verifica que el valor ingresado sea un número entero mayor o igual a 20.
@@ -97,6 +97,7 @@ def obtenerLista(cant,ventana):
     arch.write(respuesta)
     arch.close()
     messagebox.showinfo("Obtener lista","La lista fue generada exitosamente !!!")
+    estado2.config(state=NORMAL)
     ventana.destroy()
 
 def desglozarRespu(respuesta):
@@ -174,7 +175,7 @@ def verificarImagen(url):
     except (requests.exceptions.RequestException, UnidentifiedImageError) as e:
         return False
 
-def crearInventario(lista,ventana):
+def crearInventario(lista,ventana,btnBtnMostrarInven,btnEstaXEstad,btnHtml,btnPDF,btnCSV,btnOrden,btn,btnCrearInven):
     """
     Funcionamiento:
     - Genera un inventario aleatorio de 20 animales usando nombres tomados del archivo de texto(animales.txt).
@@ -191,6 +192,14 @@ def crearInventario(lista,ventana):
     Salidas:
     - list: Lista actualizada con 20 objetos `Animal` generados.
     """
+    btn.config(state=DISABLED)
+    btnCrearInven.config(state=DISABLED)
+    btnBtnMostrarInven.config(state=NORMAL)
+    btnEstaXEstad.config(state=NORMAL)
+    btnHtml.config(state=NORMAL)
+    btnPDF.config(state=NORMAL)
+    btnCSV.config(state=NORMAL)
+    btnOrden.config(state=NORMAL)
     lista.clear()
     conta=1
     lst=[]

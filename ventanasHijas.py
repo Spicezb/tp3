@@ -200,7 +200,7 @@ def ventanaOrden(lista):
     btnCancelar.place(x=450,y=250)
     btnAceptar.place(x=150,y=250)
 
-def ventanaCrearInven(lista,btn):
+def ventanaCrearInven(lista,btnBtnMostrarInven,btnEstaXEstad,btnHtml,btnPDF,btnCSV,btnOrden,btn,btnCrearInven):
     """
     Funcionamiento:
     - Crea una ventana emergente para confirmar si el usuario desea generar un inventario con 20 animales.
@@ -209,7 +209,6 @@ def ventanaCrearInven(lista,btn):
     Salidas:
     - La función crearInventario modifica la lista con el inventario generado.
     """
-    btn.config(state=NORMAL)
     vtnCrearInven = Toplevel()
     vtnCrearInven.title("Crear Inventario")
     vtnCrearInven.geometry("794x445")
@@ -222,7 +221,7 @@ def ventanaCrearInven(lista,btn):
     lblFondo=Label(vtnCrearInven,image=imgHTML)
     lblTitulo=Label(vtnCrearInven,text="¿Desea generar un inventario\ncon 20 animales?",bg="#193214",fg="#f7c760",font=("Fixedsys", 18))
     btnCancelar=Button(vtnCrearInven,image=imgBtnCancelar,borderwidth=0, highlightthickness=0,bg="#193214",activebackground="#193214", command=lambda: vtnCrearInven.destroy())
-    btnAceptar=Button(vtnCrearInven,image=imgBtnAceptar,borderwidth=0, highlightthickness=0,bg="#193214",activebackground="#193214", command=lambda: crearInventario(lista,vtnCrearInven))
+    btnAceptar=Button(vtnCrearInven,image=imgBtnAceptar,borderwidth=0, highlightthickness=0,bg="#193214",activebackground="#193214", command=lambda: crearInventario(lista,vtnCrearInven,btnBtnMostrarInven,btnEstaXEstad,btnHtml,btnPDF,btnCSV,btnOrden,btn,btnCrearInven))
     lblFondo.image_names=imgHTML
     btnCancelar.image_names=imgBtnCancelar
     btnAceptar.image_names=imgBtnAceptar
@@ -241,7 +240,6 @@ def vtnBuscar(lista,estado2):
     Salidas:
     - tuple: Retorna la tupla (lista, estado2) sin modificaciones.
     """
-    estado2.config(state=NORMAL)
     vtnBsc = Toplevel()
     vtnBsc.geometry("1090x850+0+0")
     vtnBsc.resizable(0,0)
@@ -256,7 +254,7 @@ def vtnBuscar(lista,estado2):
     lblFondo=Label(vtnBsc,image=imgFondo)
     lblCantidad=Label(vtnBsc, text="Cantidad\nDeseada:", fg="#f7c760", bg="#193214",font=("Fixedsys", 18))
     tbxCantidad = Entry(vtnBsc, font=("Fixedsys", 30), width=10, bd=3, relief="solid")
-    btnAceptar=Button(vtnBsc,image=imgBtnAceptar,borderwidth=0, highlightthickness=0,bg="#193214",activebackground="#193214", command=lambda: obtenerLista(tbxCantidad.get(),vtnBsc))
+    btnAceptar=Button(vtnBsc,image=imgBtnAceptar,borderwidth=0, highlightthickness=0,bg="#193214",activebackground="#193214", command=lambda: obtenerLista(tbxCantidad.get(),vtnBsc,estado2))
     btnCancelar=Button(vtnBsc,image=imgBtnCancelar,borderwidth=0, highlightthickness=0,bg="#193214",activebackground="#193214", command=lambda: vtnBsc.destroy())
     
     btnAceptar.image_names=imgBtnAceptar

@@ -42,7 +42,7 @@ def configVtnPrincipal(lista,estado1,estado2,estado3):
 
     lblFondo=Label(vtnPrincipal,image=imgFondo)
     btn=Button(vtnPrincipal,image=imgBtn,borderwidth=0, highlightthickness=0,bg="#193214",activebackground="#193214", command=lambda: vtnBuscar(lista,btnCrearInven),state=estado1)
-    btnCrearInven=Button(vtnPrincipal,image=imgBtnCrearInven,borderwidth=0, highlightthickness=0,bg="#193214",activebackground="#193214",command=lambda: ventanaCrearInven(lista,btnBtnMostrarInven),state=estado2)
+    btnCrearInven=Button(vtnPrincipal,image=imgBtnCrearInven,borderwidth=0, highlightthickness=0,bg="#193214",activebackground="#193214",command=lambda: ventanaCrearInven(lista,btnBtnMostrarInven,btnEstaXEstad,btnHtml,btnPDF,btnCSV,btnOrden,btn,btnCrearInven),state=estado2)
     btnBtnMostrarInven=Button(vtnPrincipal,image=imgBtnMostrarInven,borderwidth=0, highlightthickness=0,bg="#193214",activebackground="#193214", command=lambda: ventanaMstInv(lista),state=estado3)
     btnEstaXEstad=Button(vtnPrincipal,image=imgBtnEstaXEstad,borderwidth=0, highlightthickness=0,bg="#193214",activebackground="#193214", command=lambda: ventanaEstxEstado(lista),state=estado3)
     btnHtml=Button(vtnPrincipal,image=imgBtnHTML,borderwidth=0, highlightthickness=0,bg="#193214",activebackground="#193214", command=lambda: ventanaHTML(lista),state=estado3)
@@ -80,6 +80,7 @@ try:
 except:
     try:
         txt=leer("animales.txt")
+        lista=[]
         estado1=NORMAL
         estado2=NORMAL
         estado3=DISABLED
