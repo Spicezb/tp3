@@ -116,7 +116,7 @@ def desglozarRespu(respuesta):
         3. El último elemento de la cadena.
     """
     partes=respuesta.split(",")
-    nombres=(partes[0],partes[1])
+    nombres=(partes[0],partes[1].replace("*",""))
     informacion=partes[2]
     desglose=[nombres,informacion,partes[-1]]
     return(desglose)

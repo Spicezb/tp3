@@ -8,7 +8,7 @@ import google.generativeai as genai
 # Se necesita instalar la libreria google-generativeai
 
 # Se configura la clave para poder tener comunicacion mediante la Api que se creo.
-genai.configure(api_key="AIzaSyBHe1l5TmpcxRJX_tJYqTEI_ZJIxwCdM9s")
+genai.configure(api_key="AIzaSyC9psoIQMjuSnu_VX6LwlVZGeVwdbsfY8o")
 
 def comunicacionGemini(prompt):
     """
