@@ -13,7 +13,7 @@ cont=0
 vtnPrincipal=Tk()
 
 # Definicion de Funciones
-def configVtnPrincipal(lista,estado1,estados,estado3):
+def configVtnPrincipal(lista,estado1,estado2,estado3):
     if main.cont2==0:
         main.cont=0
     """
@@ -42,13 +42,13 @@ def configVtnPrincipal(lista,estado1,estados,estado3):
 
     lblFondo=Label(vtnPrincipal,image=imgFondo)
     btn=Button(vtnPrincipal,image=imgBtn,borderwidth=0, highlightthickness=0,bg="#193214",activebackground="#193214", command=lambda: vtnBuscar(lista,btnCrearInven),state=estado1)
-    btnCrearInven=Button(vtnPrincipal,image=imgBtnCrearInven,borderwidth=0, highlightthickness=0,bg="#193214",activebackground="#193214",command=lambda: ventanaCrearInven(lista,btnBtnMostrarInven),state=DISABLED)
+    btnCrearInven=Button(vtnPrincipal,image=imgBtnCrearInven,borderwidth=0, highlightthickness=0,bg="#193214",activebackground="#193214",command=lambda: ventanaCrearInven(lista,btnBtnMostrarInven),state=estado2)
     btnBtnMostrarInven=Button(vtnPrincipal,image=imgBtnMostrarInven,borderwidth=0, highlightthickness=0,bg="#193214",activebackground="#193214", command=lambda: ventanaMstInv(lista),state=estado3)
-    btnEstaXEstad=Button(vtnPrincipal,image=imgBtnEstaXEstad,borderwidth=0, highlightthickness=0,bg="#193214",activebackground="#193214", command=lambda: ventanaEstxEstado(lista),state=estados)
-    btnHtml=Button(vtnPrincipal,image=imgBtnHTML,borderwidth=0, highlightthickness=0,bg="#193214",activebackground="#193214", command=lambda: ventanaHTML(lista),state=estados)
-    btnPDF=Button(vtnPrincipal,image=imgBtnPDF,borderwidth=0, highlightthickness=0,bg="#193214",activebackground="#193214", command=lambda: ventanaPDF(lista),state=estados)
-    btnCSV=Button(vtnPrincipal,image=imgBtnCSV,borderwidth=0, highlightthickness=0,bg="#193214",activebackground="#193214", command=lambda: ventanaCSV(lista),state=estados)
-    btnOrden=Button(vtnPrincipal,image=imgBtnOrden,borderwidth=0, highlightthickness=0,bg="#193214",activebackground="#193214", command=lambda: ventanaOrden(lista),state=estados)
+    btnEstaXEstad=Button(vtnPrincipal,image=imgBtnEstaXEstad,borderwidth=0, highlightthickness=0,bg="#193214",activebackground="#193214", command=lambda: ventanaEstxEstado(lista),state=estado3)
+    btnHtml=Button(vtnPrincipal,image=imgBtnHTML,borderwidth=0, highlightthickness=0,bg="#193214",activebackground="#193214", command=lambda: ventanaHTML(lista),state=estado3)
+    btnPDF=Button(vtnPrincipal,image=imgBtnPDF,borderwidth=0, highlightthickness=0,bg="#193214",activebackground="#193214", command=lambda: ventanaPDF(lista),state=estado3)
+    btnCSV=Button(vtnPrincipal,image=imgBtnCSV,borderwidth=0, highlightthickness=0,bg="#193214",activebackground="#193214", command=lambda: ventanaCSV(lista),state=estado3)
+    btnOrden=Button(vtnPrincipal,image=imgBtnOrden,borderwidth=0, highlightthickness=0,bg="#193214",activebackground="#193214", command=lambda: ventanaOrden(lista),state=estado3)
 
     btn.image_names=imgBtn
     btnCrearInven.image_names=imgBtnCrearInven
@@ -70,21 +70,24 @@ def configVtnPrincipal(lista,estado1,estados,estado3):
     btnCSV.place(x=604, y=547)
     btnOrden.place(x=756, y=547)
 
-global lista, estado1, estados, estado3
+global lista, estado1, estado3, estado2
 
 try:
     lista=leer2("laLista")
     estado1=DISABLED
+    estado2=DISABLED
     estado3=NORMAL
-    estados=NORMAL
 except:
     try:
         txt=leer("animales.txt")
+        estado1=NORMAL
+        estado2=NORMAL
+        estado3=DISABLED
     except:        
         lista=[]
         estado1=NORMAL
+        estado2=DISABLED
         estado3=DISABLED
-        estados=DISABLED
-configVtnPrincipal(lista,estado1,estados,estado3)
+configVtnPrincipal(lista,estado1,estado2,estado3)
 
 vtnPrincipal.mainloop()
