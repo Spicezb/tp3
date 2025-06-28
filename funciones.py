@@ -579,7 +579,7 @@ def pdf(lista,ventana):
             pdfCalificacion.cell(0, 10, 'Favorito', align='L')
             conta+=1
         elif conta==4:
-            pdfCalificacion.cell(0, 10, 'Me entristese', align='L')
+            pdfCalificacion.cell(0, 10, 'Me entristece', align='L')
             conta+=1
         else:
             pdfCalificacion.cell(0, 10, 'Me enoja', align='L')
