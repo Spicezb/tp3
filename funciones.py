@@ -1,7 +1,8 @@
 # Realizado Por Luis Guillermo Alfaro Chacón y Xavier Céspedes Alvarado
-# Fecha de inicio 15/05/2025 a las 18:00
-# Última modificación 26/06/2025 02:30
+# Fecha de inicio: 
+# Última modificación:
 # Versión de Python 3.13.2
+
 # Importaciones de Librerías
 from comunicacionApi import *
 from clase import *
@@ -20,46 +21,48 @@ import re
 # IMPORTANTE se debe de descargar la libreria fpdf.
 # IMPORTANTE se debe de descargar la libreria pillow.
 # IMPORTANTE se debe de descargar la libreria google-generativeai.
+
 indice=0
 imagenes=[]
+
 #Definición de funciones
 def leer(archivo):
     """
     Funcionamiento:
-    - Lee el diccionario con la informacion de los pokemones que se encuentra en el archivo.
+    - Lee las lineas del archivo txt.
     Entradas: 
-    - archivo(str): Es el archivo que contiene el diccionario con la información de los pokemones.
+    - archivo(str): Es el archivo txt que contiene los nombres de los animales.
     Salidas:
-    - Retorna el diccionario.
+    - Retorna las lineas.
     """
     base=open(archivo,"r",encoding="utf-8")
-    dicc=base.readlines()
+    lineas=base.readlines()
     base.close()
-    return dicc
+    return lineas
 
 def leer2(archivo):
     """
     Funcionamiento:
-    - Lee el diccionario con la informacion de los pokemones que se encuentra en el archivo.
+    - Lee la lista de la base de datos de los animales.
     Entradas: 
-    - archivo(str): Es el archivo que contiene el diccionario con la información de los pokemones.
+    - archivo(str): Es el archivo que contiene la lista de objetos..
     Salidas:
-    - Retorna el diccionario.
+    - Retorna la lista
     """
     base=open(archivo,"rb")
-    dicc=pickle.load(base)
+    lista=pickle.load(base)
     base.close()
-    return dicc
+    return lista
 
 def grabar(dicc,archivo):
     """
     Funcionamiento:
-    - Graba el diccionario actualizado en el archivo.
+    - Graba la lista actualizada en el archivo.
     Entradas:
-    - dicc(dict): Es el diccionario a grabar.
-    - archivo(str): Es el archivo que contiene el diccionario con la información de los pokemones.
+    - dicc(list): Es la lista a grabar.
+    - archivo(str): Es el archivo en donde se guarda.
     Salidas:
-    - Graba el diccionario en el archivo y retorna un string vacío.
+    - Graba la lista en el archivo.
     """
     base=open(archivo,"wb")
     pickle.dump(dicc,base)
@@ -89,7 +92,6 @@ def obtenerLista(cant,ventana):
     except TypeError:
         messagebox.showerror("Error","La cantidad debe de ser un número entero mayor o igual a 20.")
         return ventana.deiconify()
-
     respuesta = comunicacionGemini(f"Necesito que tomes {cant} nombres comunes de animales, es importante que sean totalmente aleatorios y que no hayas dado en respuestas anteriores, desde wikipedia, un animal por línea. Dame solo los nombres en texo plano, intenta que sea el nombre común pero específico.")
     arch=open("animales.txt","w",encoding="UTF-8")
     arch.write(respuesta)
@@ -105,7 +107,7 @@ def desglozarRespu(respuesta):
     - Devuelve una lista estructurada con esos tres componentes.
     Entradas:
     - respuesta(str): Cadena de texto con varios elementos separados por comas. 
-      Se espera que al menos tenga 4 elementos.
+    - Se espera que al menos tenga 4 elementos.
     Salidas:
     - list: Lista con tres elementos:
         1. Tupla con los dos primeros elementos de la cadena.
@@ -225,7 +227,7 @@ def crearInventario(lista,ventana):
             peso=round(random.uniform(0, 79), 2)
         else:
             peso=round(random.uniform(80, 100), 2)
-        infoAnimal.setInformacion(estado,1,x[1][1],peso)
+        infoAnimal.setInformacion(estado,1,x[1][1].lower(),peso)
         conta+=1
         lista.append(infoAnimal)
         print(".")
@@ -236,9 +238,14 @@ def crearInventario(lista,ventana):
 
 def htmlOrden(lista,orden,ventana):
     """
+    Funcionamiento:
+    - Crea el reporte html de los animales según su orden (carnívoros, herbívoros u omnívoros)
     Entradas:
     - lista(list): Lista de objetos.
     - orden(tuple): Tupla que contiene la palabra del orden y la letra.
+    - ventana: Es la ventana donde se muestra la funcionalidad.
+    Salidas:
+    - Genera el archivo html con la información.
     """
     html = f"""
     <!DOCTYPE html>
@@ -326,7 +333,6 @@ def htmlOrden(lista,orden,ventana):
     messagebox.showinfo("Generar HTML","HTML generado exitosamente !!!")
     ventana.destroy()
 
-
 def htmlOrdenAUX(opcion, lista,ventana):
     """
     Funcionamiento:
@@ -348,11 +354,11 @@ def htmlOrdenAUX(opcion, lista,ventana):
         messagebox.showerror("Error","Debe de elegir un orden.")
         return ventana.deiconify()
     elif opcion == "Carnívoros":
-        orden = ("Carnívoros","C")
+        orden = ("Carnívoros","c")
     elif opcion == "Herbívoros":
-        orden = ("Herbívoros","H")
+        orden = ("Herbívoros","h")
     else:
-        orden = ("Omnívoros","O")
+        orden = ("Omnívoros","o")
     htmlOrden(lista,orden,ventana)
 
 def generarCSV(lista,ventana):

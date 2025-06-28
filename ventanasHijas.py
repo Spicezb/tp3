@@ -2,6 +2,7 @@
 # Fecha de inicio 15/05/2025 a las 18:00
 # Última modificación 26/06/2025 02:30
 # Versión de Python 3.13.2
+
 # Importaciones de Librerías
 from tkinter import *
 from funciones import *
@@ -198,7 +199,6 @@ def ventanaOrden(lista):
     lblTitulo.place(x=150,y=120)
     btnCancelar.place(x=450,y=250)
     btnAceptar.place(x=150,y=250)
-
 
 def ventanaCrearInven(lista,btn):
     """
