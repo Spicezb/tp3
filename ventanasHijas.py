@@ -62,7 +62,7 @@ def ventanaHTML(lista):
     imgBtnCancelar=PhotoImage(file="imagenes/btnCancelar.png")
     imgBtnAceptar=PhotoImage(file="imagenes/btnAceptar.png")
     lblFondo=Label(vtnHTML,image=imgHTML)
-    lblTitulo=Label(vtnHTML,text="¿Desea generar un HTML con las\n estadiscas de los animales?",bg="#193214",fg="#f7c760",font=("Fixedsys", 18))
+    lblTitulo=Label(vtnHTML,text="¿Desea generar un HTML con las\n estadisticas de los animales?",bg="#193214",fg="#f7c760",font=("Fixedsys", 18))
     btnCancelar=Button(vtnHTML,image=imgBtnCancelar,borderwidth=0, highlightthickness=0,bg="#193214",activebackground="#193214", command=lambda: vtnHTML.destroy())
     btnAceptar=Button(vtnHTML,image=imgBtnAceptar,borderwidth=0, highlightthickness=0,bg="#193214",activebackground="#193214", command=lambda: html(lista,vtnHTML))
     lblFondo.image_names=imgHTML
@@ -92,7 +92,7 @@ def ventanaPDF(lista):
     imgBtnCancelar=PhotoImage(file="imagenes/btnCancelar.png")
     imgBtnAceptar=PhotoImage(file="imagenes/btnAceptar.png")
     lblFondo=Label(vtnPDF,image=imgHTML)
-    lblTitulo=Label(vtnPDF,text="¿Desea generar un PDF con las\n estadiscas de los animales?",bg="#193214",fg="#f7c760",font=("Fixedsys", 17))
+    lblTitulo=Label(vtnPDF,text="¿Desea generar un PDF con las\n estadisticas de los animales?",bg="#193214",fg="#f7c760",font=("Fixedsys", 18))
     btnCancelar=Button(vtnPDF,image=imgBtnCancelar,borderwidth=0, highlightthickness=0,bg="#193214",activebackground="#193214", command=lambda: vtnPDF.destroy())
     btnAceptar=Button(vtnPDF,image=imgBtnAceptar,borderwidth=0, highlightthickness=0,bg="#193214",activebackground="#193214", command=lambda: pdf(lista,vtnPDF))
     lblFondo.image_names=imgHTML
@@ -122,7 +122,7 @@ def ventanaCSV(lista):
     imgBtnCancelar=PhotoImage(file="imagenes/btnCancelar.png")
     imgBtnAceptar=PhotoImage(file="imagenes/btnAceptar.png")
     lblFondo=Label(vtnCSV,image=imgHTML)
-    lblTitulo=Label(vtnCSV,text="¿Desea generar un CVS con las\n estadiscas de los animales?",bg="#193214",fg="#f7c760",font=("Fixedsys", 17))
+    lblTitulo=Label(vtnCSV,text="¿Desea generar un CVS con las\n estadisticas de los animales?",bg="#193214",fg="#f7c760",font=("Fixedsys", 18))
     btnCancelar=Button(vtnCSV,image=imgBtnCancelar,borderwidth=0, highlightthickness=0,bg="#193214",activebackground="#193214", command=lambda: vtnCSV.destroy())
     btnAceptar=Button(vtnCSV,image=imgBtnAceptar,borderwidth=0, highlightthickness=0,bg="#193214",activebackground="#193214", command=lambda: generarCSV(lista,vtnCSV))
     lblFondo.image_names=imgHTML
@@ -181,7 +181,7 @@ def ventanaOrden(lista):
     imgBtnCancelar=PhotoImage(file="imagenes/btnCancelar.png")
     imgBtnAceptar=PhotoImage(file="imagenes/btnAceptar.png")
     lblFondo=Label(vtnOrden,image=imgHTML)
-    lblTitulo=Label(vtnOrden,text="¿Desea generar un HTML con las\n estadiscas de los animales?",bg="#193214",fg="#f7c760",font=("Fixedsys", 17))
+    lblTitulo=Label(vtnOrden,text="¿Desea generar un HTML con las\n estadisticas de los animales?",bg="#193214",fg="#f7c760",font=("Fixedsys", 18))
     lblORden=Label(vtnOrden,text="Orden:",bg="#193214",fg="#f7c760",font=("Fixedsys", 17))
     btnCancelar=Button(vtnOrden,image=imgBtnCancelar,borderwidth=0, highlightthickness=0,bg="#193214",activebackground="#193214", command=lambda: vtnOrden.destroy())
     cbxDeci=ttk.Combobox(vtnOrden, font=("Fixedsys", 24), width=10)
@@ -220,7 +220,7 @@ def ventanaCrearInven(lista,btn):
     imgBtnCancelar=PhotoImage(file="imagenes/btnCancelar.png")
     imgBtnAceptar=PhotoImage(file="imagenes/btnAceptar.png")
     lblFondo=Label(vtnCrearInven,image=imgHTML)
-    lblTitulo=Label(vtnCrearInven,text="¿Desea generar un inventario\ncon 20 animales?",bg="#193214",fg="#f7c760",font=("Fixedsys", 17))
+    lblTitulo=Label(vtnCrearInven,text="¿Desea generar un inventario\ncon 20 animales?",bg="#193214",fg="#f7c760",font=("Fixedsys", 18))
     btnCancelar=Button(vtnCrearInven,image=imgBtnCancelar,borderwidth=0, highlightthickness=0,bg="#193214",activebackground="#193214", command=lambda: vtnCrearInven.destroy())
     btnAceptar=Button(vtnCrearInven,image=imgBtnAceptar,borderwidth=0, highlightthickness=0,bg="#193214",activebackground="#193214", command=lambda: crearInventario(lista,vtnCrearInven))
     lblFondo.image_names=imgHTML

@@ -202,7 +202,6 @@ def crearInventario(lista,ventana):
             lstABuscar.append(i)
     animalesABusc=random.sample(lstABuscar,20)
     for x in animalesABusc:
-        print(x)
         prompt=f"Dame el nombre popular y el científico, que tipo es, Carnivoro, Herbivoro o Omnivoro (RESPONDE SOLAMENTE CON ESAS 3 OPCIONES DE PALABRAS) y una url de una foto"\
                 f"de referencia del animal llamado '{x}', saca la informacion de Wikipedia." \
                 f"Responde solamente lo que te pedí, sin titulos ni explicaciones, quiero solamente la respuesta directa y en texto plano."
@@ -230,7 +229,6 @@ def crearInventario(lista,ventana):
         infoAnimal.setInformacion(estado,1,x[1][1].lower(),peso)
         conta+=1
         lista.append(infoAnimal)
-        print(".")
     grabar(lista,"laLista")
     messagebox.showinfo("Crear Inventario","EL inventario fue generado exitosamente !!!")
     ventana.destroy()
@@ -311,7 +309,6 @@ def htmlOrden(lista,orden,ventana):
         if datos[3][2]!=orden[1]:
             continue
         id,nombre,nombreC,url=datos[0],datos[1][0],datos[1][1],datos[2]
-        print(url)
         html += f"""
                 <tr>
                     <td>{i+1}</td>
