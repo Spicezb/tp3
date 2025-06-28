@@ -92,7 +92,7 @@ def obtenerLista(cant,ventana):
     except TypeError:
         messagebox.showerror("Error","La cantidad debe de ser un número entero mayor o igual a 20.")
         return ventana.deiconify()
-    respuesta = comunicacionGemini(f"Necesito que tomes {cant} nombres comunes de animales, es importante que sean totalmente aleatorios y que no hayas dado en respuestas anteriores, desde wikipedia, un animal por línea. Dame solo los nombres en texo plano, intenta que sea el nombre común pero específico.")
+    respuesta = comunicacionGemini(f"Necesito que tomes exactamente {cant} nombres comunes de animales, es importante que sean totalmente aleatorios y que no hayas dado en respuestas anteriores, desde wikipedia, un animal por línea. Dame solo los nombres en texo plano, intenta que sea el nombre común pero específico.")
     arch=open("animales.txt","w",encoding="UTF-8")
     arch.write(respuesta)
     arch.close()
@@ -205,7 +205,7 @@ def crearInventario(lista,ventana):
         print(x)
         prompt=f"Dame el nombre popular y el científico, que tipo es, Carnivoro, Herbivoro o Omnivoro (RESPONDE SOLAMENTE CON ESAS 3 OPCIONES DE PALABRAS) y una url de una foto"\
                 f"de referencia del animal llamado '{x}', saca la informacion de Wikipedia." \
-                f"Responde solamente lo que te pedí, sin titulos ni explicaciones, quiero solamente la respuesta directa."
+                f"Responde solamente lo que te pedí, sin titulos ni explicaciones, quiero solamente la respuesta directa y en texto plano."
         lst.append(desglozarRespu(comunicacionGemini(prompt)))
         time.sleep(5)
     for x in lst:
