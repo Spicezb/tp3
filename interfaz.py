@@ -74,10 +74,13 @@ try:
     estado3=NORMAL
     estados=NORMAL
 except:
-    lista=[]
-    estado1=NORMAL
-    estado3=DISABLED
-    estados=DISABLED
+    try:
+        txt=leer("animales.txt")
+    except:        
+        lista=[]
+        estado1=NORMAL
+        estado3=DISABLED
+        estados=DISABLED
 configVtnPrincipal(lista,estado1,estados,estado3)
 
 vtnPrincipal.mainloop()
